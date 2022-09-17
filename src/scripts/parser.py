@@ -116,7 +116,10 @@ def main():
             meeting_input = row.find_element('td', 'class', 'SEC_MEETING_INFO').find_element('input')
             meeting_string = meeting_input.attributes["value"]
 
-            print(course_name, status, title_raw, location, faculty, capacity_raw, credits, level, meeting_string, end='\n\n')
+            # print(course_name, status, title_raw, location, faculty, capacity_raw, credits, level, meeting_string, end='\n\n')
+
+            meeting_data = meeting_string.split()
+            print(meeting_data)
 
 if __name__ == "__main__":
     main()
