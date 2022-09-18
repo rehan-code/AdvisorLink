@@ -1,0 +1,203 @@
+{
+    "courses": [
+      {
+        "name": "Intro to Financial Accounting",
+        "faculty": "ACCT",
+        "course_code": "1220",
+        "credits": 0.5,
+        "level": "undergraduate",
+        "sections": [
+          {
+            "term": "Fall 2023",
+            "number": "0101",
+            "location": "Guelph",
+            "building": "ROZH",
+            "room": "101",
+            "instructor": "P. Lassou",
+            "capacity": 48,
+            "enrolled": 3,
+            "meetings": [
+              {
+                "type": "LEC",
+                "days": ["F"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:20AM",
+                "date": null,
+                "building": "ROZH",
+                "room": "104"
+              },
+              {
+                "type": "SEM",
+                "days": ["M"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "04:30PM",
+                "end_time": "05:20PM",
+                "date": null,
+                "building": "MCKN",
+                "room": "225"
+              },
+              {
+                "type": "EXAM",
+                "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:30AM",
+                "date": "2022/12/06",
+                "building": null,
+                "room": null
+              }
+            ]
+          },
+          {
+            "term": "Fall 2022",
+            "number": "0107",
+            "location": "Guelph",
+            "building": "ROZH",
+            "room": "101",
+            "instructor": "P. Lassou",
+            "capacity": 48,
+            "enrolled": 3,
+            "meetings": [
+              {
+                "type": "LEC",
+                "days": ["F"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:20AM",
+                "date": null,
+                "building": "ROZH",
+                "room": "104"
+              },
+              {
+                "type": "SEM",
+                "days": ["M"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "09:30AM",
+                "end_time": "10:20PM",
+                "date": null,
+                "building": "AD-S",
+                "room": "VIRTUAL"
+              },
+              {
+                "type": "EXAM",
+                "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:30AM",
+                "date": "2022/12/06",
+                "building": null,
+                "room": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Intro to Plant Agriculture",
+        "faculty": "AGR",
+        "course_code": "2470",
+        "credits": 0.5,
+        "level": "undergraduate",
+        "sections": [
+          {
+            "term": "Fall 2022",
+            "number": "0101",
+            "location": "Guelph",
+            "building": "ROZH",
+            "room": "101",
+            "instructor": "M. McDonald",
+            "capacity": 48,
+            "enrolled": 3,
+            "meetings": [
+              {
+                "type": "LEC",
+                "days": ["F"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:20AM",
+                "date": null,
+                "building": "ROZH",
+                "room": "104"
+              },
+              {
+                "type": "SEM",
+                "days": ["M"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "04:30PM",
+                "end_time": "05:20PM",
+                "date": null,
+                "building": "MCKN",
+                "room": "225"
+              },
+              {
+                "type": "EXAM",
+                "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:30AM",
+                "date": "2022/12/06",
+                "building": null,
+                "room": null
+              }
+            ]
+          },
+          {
+            "term": "Fall 2022",
+            "number": "0106",
+            "location": "Guelph",
+            "building": "ROZH",
+            "room": "101",
+            "instructor": "P. Lassou",
+            "capacity": 48,
+            "enrolled": 3,
+            "meetings": [
+              {
+                "type": "LEC",
+                "days": ["F"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:20AM",
+                "date": null,
+                "building": "MAC",
+                "room": "110"
+              },
+              {
+                "type": "SEM",
+                "days": ["M"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "09:30AM",
+                "end_time": "10:20PM",
+                "date": null,
+                "building": "AD-S",
+                "room": "VIRTUAL"
+              },
+              {
+                "type": "EXAM",
+                "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
+                "start_time": "08:30AM",
+                "end_time": "10:30AM",
+                "date": "2022/12/06",
+                "building": null,
+                "room": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
