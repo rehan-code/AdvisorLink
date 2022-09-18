@@ -15,13 +15,11 @@ class Course():
 
 class Section():
     # Creates a section instance with the given attributes
-    def __init__(self, course, term, number, location, building, room, instructor, capacity, enrolled, meetings = []):
+    def __init__(self, course, term, number, location, instructor, capacity, enrolled, meetings = []):
         self.course = course
         self.term = term
         self.number = number
         self.location = location
-        self.building = building
-        self.room = room
         self.instructor = instructor
         self.capacity = capacity
         self.enrolled = enrolled
@@ -55,7 +53,7 @@ class Meeting():
     
     # Returns a string representation of the meeting
     def __str__(self):
-        rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time + ' - ' + self.end_time + '\n'
+        rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time if self.start_time else '' + ' - ' + self.end_time if self.end_time else '' + '\n'
         if self.building and self.room:
             rep += self.building + '*' + self.room + '\n'
                 
@@ -119,8 +117,6 @@ class CourseJsonParser():
             section_data['term'],
             section_data['number'],
             section_data['location'],
-            section_data['building'],
-            section_data['room'],
             section_data['instructor'],
             section_data['capacity'],
             section_data['enrolled'],
@@ -131,7 +127,7 @@ class CourseJsonParser():
     def __parse_meeting_data(self, meeting_data):
         return Meeting(
             meeting_data['type'],
-            meeting_data['days'],
+            meeting_data['days'] if 'days' in meeting_data else [],
             meeting_data['start_time'],
             meeting_data['end_time'],
             meeting_data['date'],
