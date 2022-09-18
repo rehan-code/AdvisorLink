@@ -20,6 +20,8 @@
               {
                 "type": "LEC",
                 "days": ["F"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:20AM",
                 "date": null,
@@ -29,6 +31,8 @@
               {
                 "type": "SEM",
                 "days": ["M"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "04:30PM",
                 "end_time": "05:20PM",
                 "date": null,
@@ -38,6 +42,8 @@
               {
                 "type": "EXAM",
                 "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:30AM",
                 "date": "2022/12/06",
@@ -59,6 +65,8 @@
               {
                 "type": "LEC",
                 "days": ["F"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:20AM",
                 "date": null,
@@ -68,6 +76,8 @@
               {
                 "type": "SEM",
                 "days": ["M"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "09:30AM",
                 "end_time": "10:20PM",
                 "date": null,
@@ -77,6 +87,8 @@
               {
                 "type": "EXAM",
                 "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:30AM",
                 "date": "2022/12/06",
@@ -107,6 +119,8 @@
               {
                 "type": "LEC",
                 "days": ["F"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:20AM",
                 "date": null,
@@ -116,6 +130,8 @@
               {
                 "type": "SEM",
                 "days": ["M"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "04:30PM",
                 "end_time": "05:20PM",
                 "date": null,
@@ -125,6 +141,8 @@
               {
                 "type": "EXAM",
                 "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:30AM",
                 "date": "2022/12/06",
@@ -146,6 +164,8 @@
               {
                 "type": "LEC",
                 "days": ["F"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:20AM",
                 "date": null,
@@ -155,6 +175,8 @@
               {
                 "type": "SEM",
                 "days": ["M"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "09:30AM",
                 "end_time": "10:20PM",
                 "date": null,
@@ -164,6 +186,8 @@
               {
                 "type": "EXAM",
                 "days": ["Tu"],
+                "start_date": null,
+                "end_date": null,
                 "start_time": "08:30AM",
                 "end_time": "10:30AM",
                 "date": "2022/12/06",
