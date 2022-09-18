@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
+from html.parser import HTMLParser
 import json 
 import re
-from html.parser import HTMLParser
 
 # An array of tags that do not require closing tags in HTML.
 HTML_VOID_ELEMENTS = ["area", "base", "br", "col", "command", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr"]
@@ -116,7 +116,6 @@ def main():
     root = parse_html('courses.html')
     table_body = root.find_element('table', 'summary', 'Sections').child(0)
 
-    # hashtable containing all courses
     course_table = {}
 
     for row in table_body.children:
@@ -150,13 +149,12 @@ def main():
             course_code = "*".join(title_tokens[0].split('*')[:2])
 
             # additional course section parsing
-            if capacity_raw == None:
-                total_capacity = 0
-                enrolled = 0
-            else:
+            total_capacity = 0
+            enrolled = 0
+            if capacity_raw:
                 capacity_tokens = capacity_raw.split('/')
-                total_capacity = capacity_tokens[1].replace(' ','')
-                enrolled = capacity_tokens[0].replace(' ','')
+                total_capacity = capacity_tokens[1].replace(' ', '')
+                enrolled = capacity_tokens[0].replace(' ', '')
 
             # additional section meeting parsing
             meetings = []
@@ -180,14 +178,10 @@ def main():
                     section_meeting['date'] = meeting_info_tokens[0].split('-')[0]
                     section_meeting['start_date'] = None
                     section_meeting['end_date'] = None
-
-                if meeting_info_tokens[1] == 'IS':
+                elif meeting_info_tokens[1] == 'IS':
                     section_meeting['type'] = 'Independent Study'
-
-                if meeting_info_tokens[1] == 'DE':
+                elif meeting_info_tokens[1] == 'DE':
                     section_meeting['type'] = "Distance Education"
-                    section_meeting['start_date'] = None
-                    section_meeting['end_date'] = None
                     section_meeting['start_time'] = None
                     section_meeting['end_time'] = None
                     section_meeting['building'] = None
@@ -228,8 +222,9 @@ def main():
             section['instructor'] = instructor
             section['capacity'] = total_capacity
             section['enrolled'] = enrolled
+            section['status'] = status
             section['meetings'] = meetings
-            
+
             # insert section in existing course entry
             if course_code in course_table:
                 existing_course = course_table.get(course_code)
@@ -242,16 +237,13 @@ def main():
             course['course_code'] = course_code.split('*')[1]
             course['credits'] = credits
             course['level'] = level
-            course['status'] = status
             course['sections'] = [section]
             course_table[course_code] = course
 
-    output = {'courses': []}
-    for key,value in course_table.items():
-        output['courses'].append(value)
+    output = {'courses': list(course_table.values())}
 
     with open('courses.json', 'w') as fp:
-        json.dump(output, fp)
+        json.dump(output, fp, ensure_ascii=False, indent=2)
         
 
 if __name__ == "__main__":
