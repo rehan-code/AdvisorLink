@@ -3,8 +3,8 @@ from enum import Enum
 import argparse
 from argparse import Action
 
-
 class Course():
+    # Creates a course instance with the given attributes
     def __init__(self, name, faculty, course_code, creds, level, sections = []):
         self.name = name
         self.faculty = faculty
@@ -14,6 +14,7 @@ class Course():
         self.sections = sections
 
 class Section():
+    # Creates a section instance with the given attributes
     def __init__(self, course, term, number, location, building, room, instructor, capacity, enrolled, meetings = []):
         self.course = course
         self.term = term
@@ -26,6 +27,7 @@ class Section():
         self.enrolled = enrolled
         self.meetings = meetings
     
+    # Returns a string representation of the section
     def __str__(self):
         #FIX self.course.course_code -> string instead of tuple
         #FIX self.course.credit -> string instead of tuple
@@ -41,6 +43,7 @@ class Section():
         return (rep)
 
 class Meeting():
+     # Creates a meeting instance with the given attributes
     def __init__(self, meetingType, days, start_time, end_time, date, building, room):
         self.type = meetingType
         self.days = days
@@ -50,6 +53,7 @@ class Meeting():
         self.building = building
         self.room = room
     
+    # Returns a string representation of the meeting
     def __str__(self):
         rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time + ' - ' + self.end_time + '\n'
         if self.building and self.room:
@@ -57,10 +61,12 @@ class Meeting():
                 
         return (rep)
 
+# A class to parse the course JSON file
 class CourseJsonParser():
     def __init__(self):
         pass
-
+    
+    # This method parses the JSON file and returns a hashmap later used to search for sections
     def parse_json(self, filename):
         with open(filename, 'r') as f:
             data = json.load(f)
@@ -95,6 +101,7 @@ class CourseJsonParser():
 
         return sectionMap
 
+    # Helper function to create a course object from json data
     def __parse_course_data(self, course_data):
         return Course(
             course_data['name'],
@@ -105,6 +112,7 @@ class CourseJsonParser():
             []
         )
 
+    # Helper function to create a section object from json data
     def __parse_section_data(self, section_data):
         return Section(
             None,
@@ -119,6 +127,7 @@ class CourseJsonParser():
             []
         )
     
+    # Helper function to create a meeting object from json data
     def __parse_meeting_data(self, meeting_data):
         return Meeting(
             meeting_data['type'],
@@ -130,7 +139,7 @@ class CourseJsonParser():
             meeting_data['room']
         )
 
-
+# An enum with all the search options
 class SearchOptionEnum(str, Enum):
     CODE = 'CODE'
     FACULTY = 'FACULTY'
@@ -144,13 +153,16 @@ class SearchOptionEnum(str, Enum):
     LOCATION = 'LOCATION'
     YEAR = 'YEAR'
 
+# A Section search map class with a dictionary to store section data
 class SectionSearchMap():
     def __init__(self):
         self.searchMap = {}
 
+    # This function retrieves a list of sections using the search criteria and the searched item. O(1) to retrieve data
     def search(self, searchBy, item):
         return (self.searchMap[searchBy][item] if searchBy in self.searchMap and item in self.searchMap[searchBy] else set())
     
+    # This function adds a section to the hashmap using the search criteria to store by, the key to use and the item to store
     def add_section(self, storeBy, key, section):
         if storeBy not in self.searchMap: self.searchMap[storeBy] = {}
 
@@ -161,7 +173,7 @@ class SectionSearchMap():
             self.searchMap[storeBy][key].add(section)
 
 
-def get_parser():
+def get_arg_parser():
     parser = argparse.ArgumentParser(description='Search program that searches through the courses offered at the University of Guelph.', add_help=False)
     parser.add_argument('-name', default=None, type=str, help='course name eg. "Introduction to Accounting"', nargs='+')
     parser.add_argument('-code', default=None, type=str, help='course code eg. ACCT1220')
@@ -177,11 +189,13 @@ def get_parser():
     parser.add_argument('-h', default=False, nargs='?', action=helpAction)
     return parser
 
+# The action that is carried out when the user wants to quit the program
 class quitAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
         print('Exiting App')
         exit(0)
 
+# The action that is carried out when the user wants help with the program
 class helpAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
         print('usage: Add filters by adding the following flags to your query:\n\n'
@@ -219,10 +233,12 @@ def search_tool():
             '-year: year offered eg. 2022\n'
     )
     sections = []
-    arg_parser = get_parser()
+    arg_parser = get_arg_parser()
     while (True):
         try:
             args = arg_parser.parse_args(input('\nQuery: \n').split())
+
+            # Get all the section lists requested in the user query
             if args.name: sections.append(sectionMap.search(SearchOptionEnum.NAME, ' '.join(args.name)))
             if args.code: sections.append(sectionMap.search(SearchOptionEnum.CODE, args.code))
             if args.faculty: sections.append(sectionMap.search(SearchOptionEnum.FACULTY, args.faculty))
@@ -236,6 +252,8 @@ def search_tool():
             
             print('')
             if len(sections) == 0: continue
+
+            # Find the common set. O(min(n, m, o, ..)) where n, m , o are the lenghts of the different sections in the query
             filteredList = set.intersection(*sections)
             if len(filteredList) > 0:
                 print('Sections Found: \n\n')
