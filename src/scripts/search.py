@@ -1,5 +1,8 @@
 import json
 from enum import Enum
+import argparse
+from argparse import Action
+
 
 class Course():
     def __init__(self, name, faculty, course_code, creds, level, sections = []):
@@ -26,25 +29,33 @@ class Section():
     def __str__(self):
         #FIX self.course.course_code -> string instead of tuple
         #FIX self.course.credit -> string instead of tuple
-        print(self.course.level)
-        return (
-            self.course.faculty + '*' + self.course.course_code[0] + '*' + self.number + '\n' +
-            self.course.name + ' ' + str(self.course.credits[0]) + '\n' +
-            str(self.course.level[0]) + '\n' +
-            self.instructor + '\n' +
-            self.term + ', ' + self.location
-        )
+        rep = self.course.faculty + '*' + self.course.course_code[0] + '*' + self.number + '\n' +\
+            self.course.name + ' ' + str(self.course.credits[0]) + '\n' +\
+            str(self.course.level[0]) + '\n' +\
+            self.instructor + '\n' +\
+            self.term + ', ' + self.location + '\n\tMeetings: \n'
+        
+        for meeting in self.meetings:
+            rep += str(meeting) + '\n' if meeting else '\n'
+
+        return (rep)
 
 class Meeting():
-    def __init__(self, type, days, start_time, end_time, date, building, room):
-        self.type = type
+    def __init__(self, meetingType, days, start_time, end_time, date, building, room):
+        self.type = meetingType
         self.days = days
         self.start_time = start_time
         self.end_time = end_time
         self.date = date
         self.building = building
         self.room = room
-
+    
+    def __str__(self):
+        rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time + ' - ' + self.end_time + '\n'
+        if self.building and self.room:
+            rep += self.building + '*' + self.room + '\n'
+                
+        return (rep)
 
 class CourseJsonParser():
     def __init__(self):
@@ -90,7 +101,8 @@ class CourseJsonParser():
             course_data['faculty'],
             course_data['course_code'],
             course_data['credits'],
-            course_data['level']
+            course_data['level'],
+            []
         )
 
     def __parse_section_data(self, section_data):
@@ -103,7 +115,8 @@ class CourseJsonParser():
             section_data['room'],
             section_data['instructor'],
             section_data['capacity'],
-            section_data['enrolled']
+            section_data['enrolled'],
+            []
         )
     
     def __parse_meeting_data(self, meeting_data):
@@ -136,79 +149,107 @@ class SectionSearchMap():
         self.searchMap = {}
 
     def search(self, searchBy, item):
-        return (self.searchMap[searchBy][item] if searchBy in self.searchMap and item in self.searchMap[searchBy] else [])
+        return (self.searchMap[searchBy][item] if searchBy in self.searchMap and item in self.searchMap[searchBy] else set())
     
     def add_section(self, storeBy, key, section):
         if storeBy not in self.searchMap: self.searchMap[storeBy] = {}
 
         if key in self.searchMap[storeBy]:
-            if section not in self.searchMap[storeBy][key]: self.searchMap[storeBy][key].append(section)
+            self.searchMap[storeBy][key].add(section)
         else:
-            self.searchMap[storeBy][key] = [section]
+            self.searchMap[storeBy][key] = set()
+            self.searchMap[storeBy][key].add(section)
+
+
+def get_parser():
+    parser = argparse.ArgumentParser(description='Search program that searches through the courses offered at the University of Guelph.', add_help=False)
+    parser.add_argument('-name', default=None, type=str, help='course name eg. "Introduction to Accounting"', nargs='+')
+    parser.add_argument('-code', default=None, type=str, help='course code eg. ACCT1220')
+    parser.add_argument('-faculty', default=None, type=str, help='faculty eg. ACCT')
+    parser.add_argument('-credits', default=None, type=float, help='number of credits eg. 0.5')
+    parser.add_argument('-level', default=None, type=str, help='eg. undergraduate, graduate')
+    parser.add_argument('-term', default=None, type=str, help='eg. \'Fall 2022\'')
+    parser.add_argument('-location', default=None, type=str, help='location of the course eg. Guelph')
+    parser.add_argument('-building', default=None, type=str, help='building code eg. ROZH')
+    parser.add_argument('-instructor', default=None, type=str, help='instructor name eg. P. Lassou', nargs='+')
+    parser.add_argument('-year', default=None, type=str, help='year offered eg. 2022')
+    parser.add_argument('-q', default=False, nargs='?', action=quitAction)
+    parser.add_argument('-h', default=False, nargs='?', action=helpAction)
+    return parser
+
+class quitAction(Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        print('Exiting App')
+        exit(0)
+
+class helpAction(Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        print('usage: Add filters by adding the following flags to your query:\n\n'
+            '-h: help\n'
+            '-q: quit\n'
+            '-name: course name eg. "Introduction to Accounting"\n'
+            '-code: course code eg. ACCT1220\n'
+            '-faculty: faculty eg. ACCT\n'
+            '-credits: number of credits eg. 0.5\n' 
+            '-level: course level eg. undergraduate, graduate\n'
+            '-term: term offered eg. \'Fall 2022\'\n'
+            '-location: location of the course eg. Guelph\n'
+            '-building: building code eg. ROZH\n' 
+            '-instructor: instructor name eg. P. Lassou\n'
+            '-year: year offered eg. 2022\n'
+        )
 
 def search_tool():
     parser = CourseJsonParser()
-    sectionMap = parser.parse_json('../example-courses.json')
-    print('Welcome to the offline search tool for courses.')
+    sectionMap = parser.parse_json('../../example-courses.json')
+    print(
+            'Welcome to the offline search tool for courses.\n\n'
+            'usage: Add filters by adding the following flags to your query:\n\n'
+            '-h: help\n'
+            '-q: quit\n'
+            '-name: course name eg. Introduction to Accounting\n'
+            '-code: course code eg. ACCT1220\n'
+            '-faculty: faculty eg. ACCT\n'
+            '-credits: number of credits eg. 0.5\n' 
+            '-level: course level eg. undergraduate, graduate\n'
+            '-term: term offered eg. Fall 2022\n'
+            '-location: location of the course eg. Guelph\n'
+            '-building: building code eg. ROZH\n' 
+            '-instructor: instructor name eg. P. Lassou\n'
+            '-year: year offered eg. 2022\n'
+    )
+    sections = []
+    arg_parser = get_parser()
     while (True):
-        print(
-            '\nSearch by:\n'\
-            '(type "q" to exit)\n'\
-            '1) Course Code \n'\
-            '2) Faculty\n'\
-            '3) Instructor\n'\
-            '4) Location (Building)\n'\
-            '5) Credits\n'\
-            '6) Course Name\n'\
-            '7) Term\n'\
-            '8) Section\n'\
-            '9) Location/Campus\n'\
-            '10) Year'
-        )
-        userInput = input()
+        try:
+            args = arg_parser.parse_args(input('\nQuery: \n').split())
+            if args.name: sections.append(sectionMap.search(SearchOptionEnum.NAME, ' '.join(args.name)))
+            if args.code: sections.append(sectionMap.search(SearchOptionEnum.CODE, args.code))
+            if args.faculty: sections.append(sectionMap.search(SearchOptionEnum.FACULTY, args.faculty))
+            if args.credits: sections.append(sectionMap.search(SearchOptionEnum.CREDITS, args.credits))
+            if args.level: sections.append(sectionMap.search(SearchOptionEnum.LEVEL, args.level))
+            if args.term: sections.append(sectionMap.search(SearchOptionEnum.TERM, args.term))
+            if args.location: sections.append(sectionMap.search(SearchOptionEnum.LOCATION, args.location))
+            if args.building: sections.append(sectionMap.search(SearchOptionEnum.BUILDING, args.building))
+            if args.instructor: sections.append(sectionMap.search(SearchOptionEnum.INSTRUCTOR, ' '.join(args.instructor)))
+            if args.year: sections.append(sectionMap.search(SearchOptionEnum.YEAR, args.year))
+            
+            print('')
+            if len(sections) == 0: continue
+            filteredList = set.intersection(*sections)
+            if len(filteredList) > 0:
+                print('Sections Found: \n\n')
+                for section in filteredList:
+                    print(section)
+                    print('---------------------------------')
+            else:
+                print('No Sections met your criterias.')
 
-        sections = []
-        filteredsections = []
-        if (userInput == '1'):
-            print('Enter the course code (e.g. ACCT1220): ')
-            sections = sectionMap.search(SearchOptionEnum.CODE, input())
-        elif (userInput == '2'):
-            print('Enter the faculty (e.g. CIS): ')
-            sections = sectionMap.search(SearchOptionEnum.FACULTY, input())
-        elif (userInput == '3'): # should be in filter
-            print('Enter the course instructor (e.g. P. Lassou): ')
-            sections = sectionMap.search(SearchOptionEnum.INSTRUCTOR, input())
-        elif (userInput == '4'):# should be in filter
-            print('Enter the course location (e.g. ROZH): ')
-            sections = sectionMap.search(SearchOptionEnum.BUILDING, input())
-        elif (userInput == '5'):
-            print('Enter the course credit (e.g. 0.75): ')
-            sections = sectionMap.search(SearchOptionEnum.CREDITS, float(input()))
-        elif (userInput == '6'):
-            print('Enter the course name (e.g. ROZH): ')
-            sections = sectionMap.search(SearchOptionEnum.NAME, input())
-        elif (userInput == '7'):# should be in filter
-            print('Enter the term (e.g. Fall 2022): ')
-            sections = sectionMap.search(SearchOptionEnum.TERM, input()) 
-        elif (userInput == '8'):
-            print('Enter the section number (e.g. 0101): ')
-            sections = sectionMap.search(SearchOptionEnum.SECTION, input())
-        elif (userInput == '9'):
-            print('Enter the location/campus (e.g. Guelph): ')
-            sections = sectionMap.search(SearchOptionEnum.LOCATION, input())
-        elif (userInput == '10'):
-            print('Enter the year (e.g. 2023): ')
-            sections = sectionMap.search(SearchOptionEnum.YEAR, input()) 
-        elif (userInput == 'q'):
-            break
-        
-        if len(sections) > 0:
-            print('Sections found: \n')
-            for section in sections:
-                print(section)
-                print('------------------------------')
-        else:
-            print('No sections available')
+            sections = []
+
+        except argparse.ArgumentError:
+            print('Argument error caught')
+
 
 def main():
     search_tool()
