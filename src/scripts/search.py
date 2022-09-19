@@ -55,9 +55,9 @@ class Meeting():
     def __str__(self):
         rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time if self.start_time else '' + ' - ' + self.end_time if self.end_time else '' + '\n'
         if self.building and self.room:
-            rep += self.building + '*' + self.room + '\n'
+            rep += f' {self.building}*{self.room}\n'
 
-        return (rep)
+        return rep
 
 # A class to parse the course JSON file
 class CourseJsonParser():
@@ -179,9 +179,9 @@ def get_arg_parser():
     parser.add_argument('-name', default=None, type=str, help='course name eg. "Intro Financial Accounting"', nargs='+')
     parser.add_argument('-code', default=None, type=str, help='course code eg. ACCT1220')
     parser.add_argument('-faculty', default=None, type=str, help='faculty eg. ACCT')
-    parser.add_argument('-credits', default=None, type=float, help='number of credits eg. 0.5')
+    parser.add_argument('-credits', default=None, type=str, help='number of credits eg. 0.5')
     parser.add_argument('-level', default=None, type=str, help='eg. undergraduate, graduate')
-    parser.add_argument('-term', default=None, type=str, help='eg. \'Fall 2022\'')
+    parser.add_argument('-term', default=None, type=str, help='eg. \'Fall 2022\'', nargs='+')
     parser.add_argument('-location', default=None, type=str, help='location of the course eg. Guelph')
     parser.add_argument('-building', default=None, type=str, help='building code eg. ROZH')
     parser.add_argument('-instructor', default=None, type=str, help='instructor name eg. P. Lassou', nargs='+')
@@ -245,26 +245,25 @@ def search_tool():
             if args.faculty: sections.append(sectionMap.search(SearchOptionEnum.FACULTY, args.faculty))
             if args.credits: sections.append(sectionMap.search(SearchOptionEnum.CREDITS, args.credits))
             if args.level: sections.append(sectionMap.search(SearchOptionEnum.LEVEL, args.level))
-            if args.term: sections.append(sectionMap.search(SearchOptionEnum.TERM, args.term))
+            if args.term: sections.append(sectionMap.search(SearchOptionEnum.TERM, ' '.join(args.term)))
             if args.location: sections.append(sectionMap.search(SearchOptionEnum.LOCATION, args.location))
             if args.building: sections.append(sectionMap.search(SearchOptionEnum.BUILDING, args.building))
             if args.instructor: sections.append(sectionMap.search(SearchOptionEnum.INSTRUCTOR, ' '.join(args.instructor)))
             if args.year: sections.append(sectionMap.search(SearchOptionEnum.YEAR, args.year))
 
-            print('')
-            if len(sections) == 0: continue
+            print()
+            if len(sections):
+                # Find the common set. O(min(n, m, o, ..)) where n, m , o are the lenghts of the different sections in the query
+                filteredList = set.intersection(*sections)
+                if len(filteredList) > 0:
+                    print('Sections Found: \n\n')
+                    for section in filteredList:
+                        print(section)
+                        print('---------------------------------')
+                else:
+                    print('No Sections met your criterias.')
 
-            # Find the common set. O(min(n, m, o, ..)) where n, m , o are the lenghts of the different sections in the query
-            filteredList = set.intersection(*sections)
-            if len(filteredList) > 0:
-                print('Sections Found: \n\n')
-                for section in filteredList:
-                    print(section)
-                    print('---------------------------------')
-            else:
-                print('No Sections met your criterias.')
-
-            sections = []
+                sections = []
 
         except argparse.ArgumentError:
             print('Argument error caught')
