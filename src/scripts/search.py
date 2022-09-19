@@ -176,7 +176,7 @@ class SectionSearchMap():
 
 def get_arg_parser():
     parser = argparse.ArgumentParser(description='Search program that searches through the courses offered at the University of Guelph.', add_help=False)
-    parser.add_argument('-name', default=None, type=str, help='course name eg. "Introduction to Accounting"', nargs='+')
+    parser.add_argument('-name', default=None, type=str, help='course name eg. "Intro Financial Accounting"', nargs='+')
     parser.add_argument('-code', default=None, type=str, help='course code eg. ACCT1220')
     parser.add_argument('-faculty', default=None, type=str, help='faculty eg. ACCT')
     parser.add_argument('-credits', default=None, type=float, help='number of credits eg. 0.5')
