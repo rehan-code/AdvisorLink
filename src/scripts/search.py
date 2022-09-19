@@ -216,7 +216,7 @@ class helpAction(Action):
 
 def search_tool():
     parser = CourseJsonParser()
-    sectionMap = parser.parse_json('../../example-courses.json')
+    sectionMap = parser.parse_json('./courses.json')
     print(
             'Welcome to the offline search tool for courses.\n\n'
             'usage: Add filters by adding the following flags to your query:\n\n'
