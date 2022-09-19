@@ -156,8 +156,13 @@ class SectionSearchMap():
 
     # This function retrieves a list of sections using the search criteria and the searched item. O(1) to retrieve data
     def search(self, searchBy, item):
-        return (self.searchMap[searchBy][item] if searchBy in self.searchMap and item in self.searchMap[searchBy] else set())
-    
+        if (searchBy not in self.searchMap):
+            return set()
+
+        stored_items = self.searchMap[searchBy]
+
+        return (self.searchMap[searchBy][item] if item in stored_items else set())
+
     # This function adds a section to the hashmap using the search criteria to store by, the key to use and the item to store
     def add_section(self, storeBy, key, section):
         if storeBy not in self.searchMap: self.searchMap[storeBy] = {}
