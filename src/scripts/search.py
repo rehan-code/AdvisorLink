@@ -24,7 +24,7 @@ class Section():
         self.capacity = capacity
         self.enrolled = enrolled
         self.meetings = meetings
-    
+
     # Returns a string representation of the section
     def __str__(self):
         #FIX self.course.course_code -> string instead of tuple
@@ -34,7 +34,7 @@ class Section():
             str(self.course.level[0]) + '\n' +\
             self.instructor + '\n' +\
             self.term + ', ' + self.location + '\n\tMeetings: \n'
-        
+
         for meeting in self.meetings:
             rep += str(meeting) + '\n' if meeting else '\n'
 
@@ -50,25 +50,25 @@ class Meeting():
         self.date = date
         self.building = building
         self.room = room
-    
+
     # Returns a string representation of the meeting
     def __str__(self):
         rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time if self.start_time else '' + ' - ' + self.end_time if self.end_time else '' + '\n'
         if self.building and self.room:
             rep += self.building + '*' + self.room + '\n'
-                
+
         return (rep)
 
 # A class to parse the course JSON file
 class CourseJsonParser():
     def __init__(self):
         pass
-    
+
     # This method parses the JSON file and returns a hashmap later used to search for sections
     def parse_json(self, filename):
         with open(filename, 'r') as f:
             data = json.load(f)
-        
+
         sectionMap = SectionSearchMap()
         for course_data in data['courses']:
             course = self.__parse_course_data(course_data)
@@ -122,7 +122,7 @@ class CourseJsonParser():
             section_data['enrolled'],
             []
         )
-    
+
     # Helper function to create a meeting object from json data
     def __parse_meeting_data(self, meeting_data):
         return Meeting(
@@ -200,11 +200,11 @@ class helpAction(Action):
             '-name: course name eg. "Introduction to Accounting"\n'
             '-code: course code eg. ACCT1220\n'
             '-faculty: faculty eg. ACCT\n'
-            '-credits: number of credits eg. 0.5\n' 
+            '-credits: number of credits eg. 0.5\n'
             '-level: course level eg. undergraduate, graduate\n'
             '-term: term offered eg. \'Fall 2022\'\n'
             '-location: location of the course eg. Guelph\n'
-            '-building: building code eg. ROZH\n' 
+            '-building: building code eg. ROZH\n'
             '-instructor: instructor name eg. P. Lassou\n'
             '-year: year offered eg. 2022\n'
         )
@@ -220,11 +220,11 @@ def search_tool():
             '-name: course name eg. Introduction to Accounting\n'
             '-code: course code eg. ACCT1220\n'
             '-faculty: faculty eg. ACCT\n'
-            '-credits: number of credits eg. 0.5\n' 
+            '-credits: number of credits eg. 0.5\n'
             '-level: course level eg. undergraduate, graduate\n'
             '-term: term offered eg. Fall 2022\n'
             '-location: location of the course eg. Guelph\n'
-            '-building: building code eg. ROZH\n' 
+            '-building: building code eg. ROZH\n'
             '-instructor: instructor name eg. P. Lassou\n'
             '-year: year offered eg. 2022\n'
     )
@@ -245,7 +245,7 @@ def search_tool():
             if args.building: sections.append(sectionMap.search(SearchOptionEnum.BUILDING, args.building))
             if args.instructor: sections.append(sectionMap.search(SearchOptionEnum.INSTRUCTOR, ' '.join(args.instructor)))
             if args.year: sections.append(sectionMap.search(SearchOptionEnum.YEAR, args.year))
-            
+
             print('')
             if len(sections) == 0: continue
 
