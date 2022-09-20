@@ -160,4 +160,5 @@ cython_debug/
 #.idea/
 
 get_hours.py
-gitlab_user_weights.csv
+gitlab_sprint_weight.csv
+.DS_STORE

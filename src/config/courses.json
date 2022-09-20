@@ -498,7 +498,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -574,7 +575,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -2757,7 +2759,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -17452,7 +17455,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -18660,7 +18664,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -19589,7 +19594,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -19619,7 +19625,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -28717,7 +28724,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -31133,7 +31141,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -37064,7 +37073,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -37094,7 +37104,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -37124,7 +37135,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -37154,7 +37166,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -38694,7 +38707,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -38737,7 +38751,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -40223,7 +40238,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -40253,7 +40269,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -40329,7 +40346,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -40370,7 +40388,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -40446,7 +40465,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -58158,7 +58178,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -58540,7 +58561,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -59146,7 +59168,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -60087,7 +60110,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -60585,7 +60609,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -60615,7 +60640,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -60645,7 +60671,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -60938,7 +60965,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -61176,7 +61204,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -61206,7 +61235,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -61246,7 +61276,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -64287,7 +64318,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -65169,7 +65201,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -65909,7 +65942,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -66237,7 +66271,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -68394,7 +68429,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -68424,7 +68460,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -68500,7 +68537,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -70352,7 +70390,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -70382,7 +70421,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -70443,7 +70483,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -70799,7 +70840,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -78036,7 +78078,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -78066,7 +78109,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -78809,7 +78853,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -82436,7 +82481,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -82503,7 +82549,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -82629,7 +82676,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -82672,7 +82720,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -82736,7 +82785,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -85165,7 +85215,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -85878,7 +85929,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -90108,7 +90160,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -97373,7 +97426,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -97453,7 +97507,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -97568,7 +97623,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -97609,7 +97665,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -97775,7 +97832,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -97899,7 +97957,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -99808,7 +99867,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -99851,7 +99911,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -99940,7 +100001,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -99995,7 +100057,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -100062,7 +100125,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -100139,7 +100203,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -100206,7 +100271,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -100809,7 +100875,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -102023,7 +102090,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -102064,7 +102132,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -102543,7 +102612,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -102586,7 +102656,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -104355,7 +104426,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -105847,7 +105919,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -107142,7 +107215,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -108387,7 +108461,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -110058,7 +110133,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -110232,7 +110308,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -111735,7 +111812,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -111778,7 +111856,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -112317,7 +112396,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -112380,7 +112460,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -113544,7 +113625,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -114057,7 +114139,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -114091,7 +114174,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -115162,7 +115246,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -115911,7 +115996,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -116538,7 +116624,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -121046,7 +121133,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -122509,7 +122597,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -122975,7 +123064,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             },
             {
               "type": "EXAM",
@@ -123868,7 +123958,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -125465,7 +125556,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }
@@ -125901,7 +125993,8 @@
               "start_time": null,
               "end_time": null,
               "building": null,
-              "room": null
+              "room": null,
+              "days": []
             }
           ]
         }

@@ -1,0 +1,12 @@
+image: python:3.10
+
+before_script:
+  - python --version
+
+stages:
+  - test
+
+test-job:
+  stage: test
+  script:
+    - python3 -m unittest discover src/tests -v
