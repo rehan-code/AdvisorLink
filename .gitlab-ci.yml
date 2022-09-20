@@ -4,4 +4,4 @@ stages:
 test-job:
   stage: test
   script:
-    - make test
+    - python3 -m unittest discover src/tests -v
