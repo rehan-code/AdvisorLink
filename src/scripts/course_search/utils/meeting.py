@@ -1,7 +1,7 @@
 class Meeting():
      # Creates a meeting instance with the given attributes
-    def __init__(self, meetingType, days, start_time, end_time, date, building, room):
-        self.type = meetingType
+    def __init__(self, meeting_type, days, start_time, end_time, date, building, room):
+        self.type = meeting_type
         self.days = days
         self.start_time = start_time
         self.end_time = end_time

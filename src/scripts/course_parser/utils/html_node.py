@@ -17,20 +17,20 @@ class HTMLNode():
 
     # Format the node object into html string
     def format(self, indentation = None):
-        children_string = ' '.join([i if isinstance(i, str) else i.format(None if indentation == None else indentation + 1) for i in self.children])
-        attributes_string = (' ' + ' '.join([f'{i}={str(self.attributes[i])}' for i in self.attributes])) if len(self.attributes) > 0 else ''
-        indentation = '' if indentation == None else '\n' + ('  ' * indentation)
+        children_string = ' '.join([i if isinstance(i, str) else i.format(None if indentation is None else indentation + 1) for i in self.children])
+        attributes_string = (' ' + ' '.join([f'{i}={str(self.attributes[i])}' for i in self.attributes.items()])) if len(self.attributes) > 0 else ''
+        indentation = '' if indentation is None else '\n' + ('  ' * indentation)
         if len(self.children) == 0:
             return f'{indentation}<{self.tag}{attributes_string} />'
         return f'{indentation}<{self.tag}{attributes_string}>{children_string}{indentation}</{self.tag}>'
 
     # Find the first child node with specific tag and attributes
     def find_element(self, tag=None, attr=None, value=None):
-        if isinstance(self, str) == False and (not tag or tag == self.tag) and (not attr or (attr in self.attributes and value in self.attributes[attr].split())):
+        if isinstance(self, str) is False and (not tag or tag == self.tag) and (not attr or (attr in self.attributes and value in self.attributes[attr].split())):
             return self
 
         for child in self.children:
-            if isinstance(child, str) == False:
+            if isinstance(child, str) is False:
                 result = child.find_element(tag, attr, value)
                 if result:
                     return result

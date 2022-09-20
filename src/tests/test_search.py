@@ -26,14 +26,14 @@ class ParserTests(unittest.TestCase):
 
         # Ensure that the section map has the search parameters we are expecting.
         for term in searchables:
-            self.assertIsInstance(section_map.searchMap[term], dict, f'Expected field {term} in section_map.searchMap to be dict')
+            self.assertIsInstance(section_map.search_map[term], dict, f'Expected field {term} in section_map.search_map to be dict')
 
     def test_search_by_code(self):
         section_map = load_section_map()
 
         # Test searching the exact course code.
         found_sections = section_map.search(search.SearchOptionEnum.CODE, 'ACCT1220')
-        self.assertTrue(len(found_sections) > 0 and all([section.course.faculty == 'ACCT' and section.course.course_code[0] == '1220' for section in found_sections]))
+        self.assertTrue(len(found_sections) > 0 and all([section.course.faculty == 'ACCT' and section.course.course_code == '1220' for section in found_sections]))
 
         # Course code searching should be case-insensitive.
         # found_sections = section_map.search(search.SearchOptionEnum.CODE, 'AcCt1220')
@@ -58,7 +58,7 @@ class ParserTests(unittest.TestCase):
 
         # Test searching by the credits of the course.
         found_sections = section_map.search(search.SearchOptionEnum.CREDITS, '0.75')
-        self.assertTrue(len(found_sections) > 0 and all([section.course.credits[0] == '0.75' for section in found_sections]))
+        self.assertTrue(len(found_sections) > 0 and all([section.course.credits == '0.75' for section in found_sections]))
 
     def test_search_by_instructor(self):
         section_map = load_section_map()
@@ -93,7 +93,7 @@ class ParserTests(unittest.TestCase):
 
         # Test searching by the level (graduate, undergraduate) of the course.
         found_sections = section_map.search(search.SearchOptionEnum.LEVEL, 'Graduate')
-        self.assertTrue(len(found_sections) > 0 and all([section.course.level[0] == 'Graduate' for section in found_sections]))
+        self.assertTrue(len(found_sections) > 0 and all([section.course.level == 'Graduate' for section in found_sections]))
 
     def test_search_by_location(self):
         section_map = load_section_map()

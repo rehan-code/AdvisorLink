@@ -14,13 +14,13 @@ class Section():
     def __str__(self):
         #FIX self.course.course_code -> string instead of tuple
         #FIX self.course.credit -> string instead of tuple
-        rep = self.course.faculty + '*' + self.course.course_code[0] + '*' + self.number + '\n' +\
-            self.course.name + ' ' + str(self.course.credits[0]) + '\n' +\
-            str(self.course.level[0]) + '\n' +\
+        rep = self.course.faculty + '*' + self.course.course_code + '*' + self.number + '\n' +\
+            self.course.name + ' ' + str(self.course.credits) + '\n' +\
+            str(self.course.level) + '\n' +\
             self.instructor + '\n' +\
             self.term + ', ' + self.location + '\n\tMeetings: \n'
 
         for meeting in self.meetings:
             rep += str(meeting) + '\n' if meeting else '\n'
 
-        return (rep)
+        return rep

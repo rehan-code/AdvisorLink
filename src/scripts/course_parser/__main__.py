@@ -7,14 +7,14 @@ import os
 # If importing from main, it is not run as part of the package, use absolute imports.
 # If not, then its a part of the package, so import relatively,
 if __name__ == "__main__":
-    from utils import HTMLNodeParser, HTMLNode, courses_to_csv
+    from utils import HTMLNodeParser, courses_to_csv
 else:
-    from .utils import HTMLNodeParser, HTMLNode, courses_to_csv
+    from .utils import HTMLNodeParser, courses_to_csv
 
 # Helper function to make paths relative to this script instead of the directory
 # from which it was run.
 script_directory = os.path.dirname(os.path.abspath(__file__))
-def relPath(path):
+def rel_path(path):
     return os.path.join(script_directory, path)
 
 # An array of valid days for class meetings
@@ -31,15 +31,15 @@ REPLACEMENT_TABLE = {
     'NoTimes, ,': 'NoTimes,'
 }
 
-def parse_html(fileName):
+def parse_html(file_name):
     parser = HTMLNodeParser()
-    with open(fileName) as fp:
-        parser.feed(fp.read())
+    with open(file_name, encoding='utf-8') as file:
+        parser.feed(file.read())
     return parser.get_root()
 
 def main():
     print('Parsing HTML...', end='')
-    root = parse_html(relPath('../../config/courses.html'))
+    root = parse_html(rel_path('../../config/courses.html'))
     print('done')
 
 
@@ -50,7 +50,7 @@ def main():
     print('Extracting course information...', end='')
     for row in table_body.children:
         # Only extract information from rows that actually contain course data.
-        if (row.child(0) and row.child(0).child(0) and row.child(0).child(0) != 'Sections'):
+        if row.child(0) and row.child(0).child(0) and row.child(0).child(0) != 'Sections':
             row_id = row.child(0).child(0)
             term = row.find_element('p', 'id', f'WSS_COURSE_SECTIONS_{row_id}').child(0)
             status = row.find_element('p', 'id', f'LIST_VAR1_{row_id}').child(0)
@@ -58,7 +58,7 @@ def main():
             location = row.find_element('p', 'id', f'SEC_LOCATION_{row_id}').child(0)
             instructor = row.find_element('p', 'id', f'SEC_FACULTY_INFO_{row_id}').child(0)
             capacity_raw = row.find_element('p', 'id', f'LIST_VAR5_{row_id}').child(0)
-            credits = row.find_element('p', 'id', f'SEC_MIN_CRED_{row_id}').child(0)
+            course_credits = row.find_element('p', 'id', f'SEC_MIN_CRED_{row_id}').child(0)
             level = row.find_element('p', 'id', f'SEC_ACAD_LEVEL_{row_id}').child(0)
 
             meeting_input = row.find_element('td', 'class', 'SEC_MEETING_INFO').find_element('input')
@@ -166,7 +166,7 @@ def main():
             course['name'] = name
             course['faculty'] = title_tokens[0].split('*')[0]
             course['course_code'] = course_code.split('*')[1]
-            course['credits'] = credits
+            course['credits'] = course_credits
             course['level'] = level
             course['sections'] = [section]
             course_table[course_code] = course
@@ -175,14 +175,14 @@ def main():
     output = {'courses': list(course_table.values())}
 
     print('Saving course information to courses.json...', end='')
-    with open(relPath('../../config/courses.json'), 'w') as fp:
-        json.dump(output, fp, ensure_ascii=False, indent=2)
+    with open(rel_path('../../config/courses.json'), 'w', encoding='utf-8') as file:
+        json.dump(output, file, ensure_ascii=False, indent=2)
     print('done')
 
     print('Saving course information to courses.csv...', end='')
-    with open(relPath('../../config/courses.csv'), 'w') as fp:
+    with open(rel_path('../../config/courses.csv'), 'w', encoding='utf-8') as file:
         courses_csv = courses_to_csv(course_table.values())
-        fp.write(courses_csv)
+        file.write(courses_csv)
     print('done')
 
 if __name__ == "__main__":

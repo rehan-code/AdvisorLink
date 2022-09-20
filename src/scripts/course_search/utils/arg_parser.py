@@ -1,3 +1,4 @@
+import sys
 from argparse import Action, ArgumentParser
 
 def get_arg_parser():
@@ -12,18 +13,18 @@ def get_arg_parser():
     parser.add_argument('-building', default=None, type=str, help='building code eg. ROZH')
     parser.add_argument('-instructor', default=None, type=str, help='instructor name eg. P. Lassou', nargs='+')
     parser.add_argument('-year', default=None, type=str, help='year offered eg. 2022')
-    parser.add_argument('-q', default=False, nargs='?', action=quitAction)
-    parser.add_argument('-h', default=False, nargs='?', action=helpAction)
+    parser.add_argument('-q', default=False, nargs='?', action=QuitAction)
+    parser.add_argument('-h', default=False, nargs='?', action=HelpAction)
     return parser
 
 # The action that is carried out when the user wants to quit the program
-class quitAction(Action):
+class QuitAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
         print('Exiting App')
-        exit(0)
+        sys.exit(0)
 
 # The action that is carried out when the user wants help with the program
-class helpAction(Action):
+class HelpAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
         print('usage: Add filters by adding the following flags to your query:\n\n'
             '-h: help\n'

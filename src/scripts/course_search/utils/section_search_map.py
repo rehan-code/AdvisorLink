@@ -17,23 +17,22 @@ class SearchOptionEnum(str, Enum):
 # A Section search map class with a dictionary to store section data
 class SectionSearchMap():
     def __init__(self):
-        self.searchMap = {}
+        self.search_map = {}
 
     # This function retrieves a list of sections using the search criteria and the searched item. O(1) to retrieve data
-    def search(self, searchBy, item):
-        if (searchBy not in self.searchMap):
+    def search(self, search_by, item):
+        if search_by not in self.search_map:
             return set()
 
-        stored_items = self.searchMap[searchBy]
+        stored_items = self.search_map[search_by]
 
-        return (self.searchMap[searchBy][item] if item in stored_items else set())
+        return self.search_map[search_by][item] if item in stored_items else set()
 
     # This function adds a section to the hashmap using the search criteria to store by, the key to use and the item to store
-    def add_section(self, storeBy, key, section):
-        if storeBy not in self.searchMap: self.searchMap[storeBy] = {}
+    def add_section(self, store_by, key, section):
+        if store_by not in self.search_map:
+            self.search_map[store_by] = {}
 
-        if key in self.searchMap[storeBy]:
-            self.searchMap[storeBy][key].add(section)
-        else:
-            self.searchMap[storeBy][key] = set()
-            self.searchMap[storeBy][key].add(section)
+        if key not in self.search_map[store_by]:
+            self.search_map[store_by][key] = set()
+        self.search_map[store_by][key].add(section)

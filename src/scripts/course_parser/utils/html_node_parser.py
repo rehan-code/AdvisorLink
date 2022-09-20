@@ -31,7 +31,7 @@ class HTMLNodeParser(HTMLParser):
             return
 
         # If the current data is a string and the previous data received was a string, combine them.
-        if (len(self.current_node.children) > 0 and isinstance(self.current_node.children[-1], str)):
+        if len(self.current_node.children) > 0 and isinstance(self.current_node.children[-1], str):
             self.current_node.children[-1] = self.current_node.children[-1] + " " + simplified_data
         # Previous data was not a string, so add a new string to the end of the current node's children.
         else:
@@ -39,3 +39,6 @@ class HTMLNodeParser(HTMLParser):
 
     def get_root(self):
         return self.root_node
+
+    def error(self, message):
+        raise Exception(message)

@@ -12,10 +12,10 @@ class CourseJsonParser():
 
     # This method parses the JSON file and returns a hashmap later used to search for sections
     def parse_json(self, filename):
-        with open(filename, 'r') as f:
-            data = json.load(f)
+        with open(filename, 'r', encoding='utf-8') as file:
+            data = json.load(file)
 
-        sectionMap = SectionSearchMap()
+        section_map = SectionSearchMap()
         for course_data in data['courses']:
             course = self.__parse_course_data(course_data)
 
@@ -23,27 +23,27 @@ class CourseJsonParser():
                 section = self.__parse_section_data(section_data)
                 section.course = course
 
-                sectionMap.add_section(SearchOptionEnum.CODE, course_data['faculty'] + course_data['course_code'], section)
-                sectionMap.add_section(SearchOptionEnum.FACULTY, course_data['faculty'], section)
-                sectionMap.add_section(SearchOptionEnum.CREDITS, course_data['credits'], section)
-                sectionMap.add_section(SearchOptionEnum.INSTRUCTOR, section_data['instructor'], section)
-                sectionMap.add_section(SearchOptionEnum.NAME, course_data['name'], section)
-                sectionMap.add_section(SearchOptionEnum.TERM, section_data['term'], section)
-                sectionMap.add_section(SearchOptionEnum.SECTION, section_data['number'], section)
-                sectionMap.add_section(SearchOptionEnum.LEVEL, course_data['level'], section)
-                sectionMap.add_section(SearchOptionEnum.LOCATION, section_data['location'], section)
-                sectionMap.add_section(SearchOptionEnum.YEAR, section_data['term'].split()[1], section)
+                section_map.add_section(SearchOptionEnum.CODE, course_data['faculty'] + course_data['course_code'], section)
+                section_map.add_section(SearchOptionEnum.FACULTY, course_data['faculty'], section)
+                section_map.add_section(SearchOptionEnum.CREDITS, course_data['credits'], section)
+                section_map.add_section(SearchOptionEnum.INSTRUCTOR, section_data['instructor'], section)
+                section_map.add_section(SearchOptionEnum.NAME, course_data['name'], section)
+                section_map.add_section(SearchOptionEnum.TERM, section_data['term'], section)
+                section_map.add_section(SearchOptionEnum.SECTION, section_data['number'], section)
+                section_map.add_section(SearchOptionEnum.LEVEL, course_data['level'], section)
+                section_map.add_section(SearchOptionEnum.LOCATION, section_data['location'], section)
+                section_map.add_section(SearchOptionEnum.YEAR, section_data['term'].split()[1], section)
 
                 for meeting_data in section_data['meetings']:
                     meeting = self.__parse_meeting_data(meeting_data)
 
-                    sectionMap.add_section(SearchOptionEnum.BUILDING, meeting_data['building'], section)
+                    section_map.add_section(SearchOptionEnum.BUILDING, meeting_data['building'], section)
 
                     section.meetings.append(meeting)
 
                 course.sections.append(section)
 
-        return sectionMap
+        return section_map
 
     # Helper function to create a course object from json data
     def __parse_course_data(self, course_data):
