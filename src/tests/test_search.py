@@ -1,11 +1,8 @@
 import unittest
-import sys
 
-sys.path.insert(0, './src/scripts')
+import src.scripts.course_search as search
 
-import search
-
-def load_section_map(section_json_path='./src/scripts/courses.json'):
+def load_section_map(section_json_path='./src/config/courses.json'):
     parser = search.CourseJsonParser()
     section_map = parser.parse_json(section_json_path)
     return section_map
