@@ -11,7 +11,7 @@ class Meeting():
 
     # Returns a string representation of the meeting
     def __str__(self):
-        rep = self.type + '\n' + ','.join(self.days) + '\n'+ self.start_time if self.start_time else '' + ' - ' + self.end_time if self.end_time else '' + '\n'
+        rep = self.type + '\n\t' + ','.join(self.days) + '\n' + '\t' + self.start_time if self.start_time else '' + ' - ' + self.end_time if self.end_time else '' + '\n'
         if self.building and self.room:
             rep += f' {self.building}*{self.room}\n'
 
