@@ -12,7 +12,7 @@ def get_arg_parser():
     parser.add_argument('-location', default=None, type=str, help='location of the course eg. Guelph')
     parser.add_argument('-building', default=None, type=str, help='building code eg. ROZH')
     parser.add_argument('-instructor', default=None, type=str, help='instructor name eg. P. Lassou', nargs='+')
-    parser.add_argument('-year', default=None, type=str, help='year offered eg. 2022')
+    parser.add_argument('-year', default=None, type=str, help='year offered eg. 3')
     parser.add_argument('-q', default=False, nargs='?', action=QuitAction)
     parser.add_argument('-h', default=False, nargs='?', action=HelpAction)
     return parser
@@ -38,5 +38,5 @@ class HelpAction(Action):
             '-location: location of the course eg. Guelph\n'
             '-building: building code eg. ROZH\n'
             '-instructor: instructor name eg. P. Lassou\n'
-            '-year: year offered eg. 2022\n'
+            '-year: year offered eg. 3\n'
         )

@@ -31,7 +31,7 @@ def main():
         '-location: location of the course eg. Guelph\n'
         '-building: building code eg. ROZH\n'
         '-instructor: instructor name eg. P. Lassou\n'
-        '-year: year offered eg. 2022\n'
+        '-year: year offered eg. 3\n'
     )
     sections = []
     arg_parser = get_arg_parser()

@@ -32,7 +32,7 @@ class CourseJsonParser():
                 section_map.add_section(SearchOptionEnum.SECTION, section_data['number'], section)
                 section_map.add_section(SearchOptionEnum.LEVEL, course_data['level'], section)
                 section_map.add_section(SearchOptionEnum.LOCATION, section_data['location'], section)
-                section_map.add_section(SearchOptionEnum.YEAR, section_data['term'].split()[1], section)
+                section_map.add_section(SearchOptionEnum.YEAR, course_data['course_code'][0], section)
 
                 for meeting_data in section_data['meetings']:
                     meeting = self.__parse_meeting_data(meeting_data)
