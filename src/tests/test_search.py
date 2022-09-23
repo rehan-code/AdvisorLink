@@ -106,8 +106,8 @@ class ParserTests(unittest.TestCase):
         section_map = load_section_map()
 
         # Test searching by the year of the course is offered.
-        found_sections = section_map.search(search.SearchOptionEnum.YEAR, '2022')
-        self.assertTrue(len(found_sections) > 0 and all([section.term.split()[1] == '2022' for section in found_sections]))
+        found_sections = section_map.search(search.SearchOptionEnum.YEAR, '8')
+        self.assertTrue(len(found_sections) > 0 and all([section.course.course_code[0] == '8' for section in found_sections]))
 
 if __name__ == '__main__':
     unittest.main()
