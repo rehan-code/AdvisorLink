@@ -47,7 +47,7 @@ def main():
             if args.faculty:
                 sections.append(section_map.search(SearchOptionEnum.FACULTY, args.faculty))
             if args.credits:
-                sections.append(section_map.search(SearchOptionEnum.CREDITS, args.credits))
+                sections.append(section_map.search(SearchOptionEnum.CREDITS, str(format(float(args.credits), ".2f"))))
             if args.level:
                 sections.append(section_map.search(SearchOptionEnum.LEVEL, args.level))
             if args.term:
