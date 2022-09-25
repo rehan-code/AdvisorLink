@@ -32,6 +32,7 @@ def main():
         '-building: building code eg. ROZH\n'
         '-instructor: instructor name eg. P. Lassou\n'
         '-year: year offered eg. 3\n'
+        '-exam: exam time eg. 2022/12/16'
     )
     sections = []
     arg_parser = get_arg_parser()
@@ -60,6 +61,8 @@ def main():
                 sections.append(section_map.search(SearchOptionEnum.INSTRUCTOR, ' '.join(args.instructor)))
             if args.year:
                 sections.append(section_map.search(SearchOptionEnum.YEAR, args.year))
+            if args.exam:
+                sections.append(section_map.search(SearchOptionEnum.EXAM, args.exam))
 
             print()
             if len(sections) > 0:
