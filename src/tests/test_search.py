@@ -109,5 +109,12 @@ class ParserTests(unittest.TestCase):
         found_sections = section_map.search(search.SearchOptionEnum.YEAR, '8')
         self.assertTrue(len(found_sections) > 0 and all([section.course.course_code[0] == '8' for section in found_sections]))
 
+    def test_search_by_exam(self):
+        section_map = load_section_map()
+
+        # Test searching by the exam date a course
+        found_sections = section_map.search(search.SearchOptionEnum.EXAM, '2022/12/16')
+        self.assertTrue(len(found_sections) > 0 and all([any([meeting.date == '2022/12/16' and meeting.type == 'EXAM' for meeting in section.meetings]) for section in found_sections]))
+
 if __name__ == '__main__':
     unittest.main()

@@ -13,6 +13,7 @@ class SearchOptionEnum(str, Enum):
     LEVEL = 'LEVEL'
     LOCATION = 'LOCATION'
     YEAR = 'YEAR'
+    EXAM = 'EXAM'
 
 # A Section search map class with a dictionary to store section data
 class SectionSearchMap():

@@ -39,6 +39,9 @@ class CourseJsonParser():
 
                     section_map.add_section(SearchOptionEnum.BUILDING, meeting_data['building'], section)
 
+                    if meeting_data['type'] == 'EXAM':
+                        section_map.add_section(SearchOptionEnum.EXAM, meeting_data['date'], section)
+
                     section.meetings.append(meeting)
 
                 course.sections.append(section)
