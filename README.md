@@ -2,34 +2,41 @@
 
 ## Name
 
-University of Guelph Course Parser and Search CLI Program
+University of Guelph Course Scheduler
 
 ## Description
 
-### Parser
+The `course_schedule_spreadsheet.xlsm` file contains 5 sheets:
 
-The `parser.py` parses the `Section Selection Results WebAdvisor University of Guelph.html` file and creates a `courses.json` output file containing the universty of Guelph Course details in JSON format.
+### - Readme
 
-### Search
+Contains information and how to use the file.
 
-Requires `parser.py` to be run first and the `courses.json` to be available.
-The `search.py` allowes users to search the `courses.json` file in a CLI using various options.
+### - courses
+
+Contains a list of information of all the available courses offered by the University of Guelph
+
+### - course selector
+
+Allows the user to choose the courses (by course code) to create the `schedule` and `course information` sheets.
+
+### - schedule
+
+Contains the created course schedule calendar after courses have been selected. To allow user to view the schedule of their courses in a calendar view.
+
+### - course information
+
+Contains the created course information after courses have been selected. Allows users to view all the information regarding only the information of the courses they have selected
 
 ## Installation
 
-Requires Python3+
+Requires Microsoft Excel
 
 ## Usage
 
-### Parser
-
-`python3 parser.py`
-
-### Search
-
-`python3 search.py`
-
-User will then get a menu for 10 available search options. After choosing an option the user can enter the related search query to obtain a list of course detail results.
+- All course information can be viewed in the `courses` sheet
+- The user can then select the courses they are taking in the `course selector` sheet by adding the appropriate course codes under the `Course Code` column and then press the `Create Schedule` button.
+- This fills in the `shedule` and `course information` sheet. The `schedule` sheet now provides a calendar view of the appropriate meeting times of the courses. The `course information` sheet now shows the courses information of only the selected courses of the user.
 
 ## Authors and acknowledgment
 
