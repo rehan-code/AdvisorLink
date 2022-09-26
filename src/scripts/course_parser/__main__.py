@@ -18,7 +18,7 @@ def rel_path(path):
     return os.path.join(script_directory, path)
 
 # An array of valid days for class meetings
-VALID_DAYS = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']
+VALID_DAYS = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 
 # A dictionary of values to find and replace to sanitize meeting data
 REPLACEMENT_TABLE = {
