@@ -9,12 +9,12 @@ def section_to_csv(section, course):
     section_level_values = [
         f'{course["faculty"]}*{course["course_code"]}*{section["number"]}',
         course["faculty"],
-        "'" + course["course_code"],
+        "" + course["course_code"],
         course["name"],
-        "'" + course["credits"],
+        "" + course["credits"],
         course["level"],
         section["term"],
-        "'" + section["number"],
+        "" + section["number"],
         section["location"],
         section["instructor"],
         section["capacity"],
@@ -46,10 +46,10 @@ def meeting_to_csv(meeting):
         meeting['start_date'],
         meeting['end_date'],
         ' '.join(meeting['days']),
-        meeting['start_time'],
-        meeting['end_time'],
+        meeting['start_time'].replace('AM', ' AM').replace('PM', ' PM') if meeting['start_time'] else meeting['start_time'],
+        meeting['end_time'].replace('AM', ' AM').replace('PM', ' PM') if meeting['end_time'] else meeting['end_time'],
         meeting['building'],
-        "'" + meeting['room'] if meeting['room'] else None
+        "" + meeting['room'] if meeting['room'] else None
     ]
 
     return ','.join([f'"{value}"' if value else '' for value in values])
