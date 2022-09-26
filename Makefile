@@ -2,7 +2,7 @@ PYTHON = python
 
 help:
 	@echo "> test ............ Run the tests"
-	@echo "> lint ............ Lint all python files in src/
+	@echo "> lint ............ Lint all python files in src/"
 	@echo "> course_config ... Run the course parser to create the course configuration files"
 	@echo "> search_cli ...... Run the course search CLI"
 
