@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "course",
+    "description": "A course at the University of Guelph",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "faculty": {"type":"string"},
+        "course_code": {"type": "string"},
+        "credits": {"type": "string"},
+        "level": {"type": "string"},
+        "sections": {"type": "array"}   
+    }
+}

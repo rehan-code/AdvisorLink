@@ -66544,8 +66544,8 @@
           "number": "0103",
           "location": "Guelph",
           "instructor": "A. Marangoni",
-          "capacity": 0,
-          "enrolled": 0,
+          "capacity": "0",
+          "enrolled": "0",
           "status": "Open",
           "meetings": [
             {
