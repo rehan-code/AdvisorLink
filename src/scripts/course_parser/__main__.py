@@ -3,13 +3,14 @@
 import json
 import re
 import os
+import sys
 
 # If importing from main, it is not run as part of the package, use absolute imports.
 # If not, then its a part of the package, so import relatively,
 if __name__ == "__main__":
-    from utils import HTMLNodeParser, courses_to_csv
+    from utils import HTMLNodeParser, courses_to_csv, json_validator
 else:
-    from .utils import HTMLNodeParser, courses_to_csv
+    from .utils import HTMLNodeParser, courses_to_csv, json_validator
 
 # Helper function to make paths relative to this script instead of the directory
 # from which it was run.
@@ -151,8 +152,8 @@ def main():
             section['number'] = title_tokens[0].split('*')[2]
             section['location'] = location
             section['instructor'] = instructor
-            section['capacity'] = total_capacity
-            section['enrolled'] = enrolled
+            section['capacity'] = str(total_capacity)
+            section['enrolled'] = str(enrolled)
             section['status'] = status
             section['meetings'] = meetings
 
@@ -184,6 +185,16 @@ def main():
         courses_csv = courses_to_csv(course_table.values())
         file.write(courses_csv)
     print('done')
+
+    print('Validating courses.json...', end='')
+    sys.stdout.flush()
+    course_validator = json_validator.JSONValidator()
+
+    if course_validator.validateCourses(rel_path('../../config/courses.json')) == False:
+        print('Course validation failed... exiting', end='')
+        return 
+    else:
+        print('done')
 
 if __name__ == "__main__":
     main()

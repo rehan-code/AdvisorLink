@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "section",
+    "description": "A course section at the University of Guelph",
+    "type": "object",
+    "properties": {
+        "term": {"type": "string"},
+        "number": {"type": "string"},
+        "location": {"type": "string"},
+        "instructor": {"type": "string"},
+        "capacity": {"type": "string"},
+        "enrolled": {"type": "string"},
+        "status": {"type": "string"},
+        "meetings": {"type": "array"}
+    }
+}

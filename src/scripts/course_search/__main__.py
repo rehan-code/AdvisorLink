@@ -64,7 +64,6 @@ def main():
             if args.exam:
                 sections.append(section_map.search(SearchOptionEnum.EXAM, args.exam))
 
-            print()
             if len(sections) > 0:
                 # Find the common set. O(min(n, m, o, ..)) where n, m , o are the lenghts of the different sections in the query
                 filtered_list = set.intersection(*sections)
