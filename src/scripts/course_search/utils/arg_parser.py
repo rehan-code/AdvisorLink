@@ -1,5 +1,35 @@
 import sys
-from argparse import Action, ArgumentParser
+import argparse
+
+class ArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        sys.stderr.write('error: %s' % message)
+        help_action = self._option_string_actions.get('-h')
+        help_action(help_action, help_action.dest, argparse.SUPPRESS, None)
+
+# The action that is carried out when the user wants to quit the program
+class QuitAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        print('Exiting App')
+        sys.exit(0)
+
+# The action that is carried out when the user wants help with the program
+class HelpAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        print('usage: Add filters by adding the following flags to your query:\n\n'
+            '-h: help\n'
+            '-q: quit\n'
+            '-name: course name eg. ""Intro Financial Accounting""\n'
+            '-code: course code eg. ACCT1220\n'
+            '-faculty: faculty eg. ACCT\n'
+            '-credits: number of credits eg. 0.5\n'
+            '-level: course level eg. undergraduate, graduate\n'
+            '-term: term offered eg. \'Fall 2022\'\n'
+            '-location: location of the course eg. Guelph\n'
+            '-building: building code eg. ROZH\n'
+            '-instructor: instructor name eg. P. Lassou\n'
+            '-year: year offered eg. 3\n'
+            '-exam: exam time eg. 2022/12/16\n')
 
 def get_arg_parser():
     parser = ArgumentParser(description='Search program that searches through the courses offered at the University of Guelph.', add_help=False)
@@ -17,28 +47,3 @@ def get_arg_parser():
     parser.add_argument('-q', default=False, nargs='?', action=QuitAction)
     parser.add_argument('-h', default=False, nargs='?', action=HelpAction)
     return parser
-
-# The action that is carried out when the user wants to quit the program
-class QuitAction(Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        print('Exiting App')
-        sys.exit(0)
-
-# The action that is carried out when the user wants help with the program
-class HelpAction(Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        print('usage: Add filters by adding the following flags to your query:\n\n'
-            '-h: help\n'
-            '-q: quit\n'
-            '-name: course name eg. ""Intro Financial Accounting""\n'
-            '-code: course code eg. ACCT1220\n'
-            '-faculty: faculty eg. ACCT\n'
-            '-credits: number of credits eg. 0.5\n'
-            '-level: course level eg. undergraduate, graduate\n'
-            '-term: term offered eg. \'Fall 2022\'\n'
-            '-location: location of the course eg. Guelph\n'
-            '-building: building code eg. ROZH\n'
-            '-instructor: instructor name eg. P. Lassou\n'
-            '-year: year offered eg. 3\n'
-            '-exam: exam time eg. 2022/12/16\n'
-        )
