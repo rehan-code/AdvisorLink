@@ -5,20 +5,11 @@ import os
 script_directory = os.path.dirname(os.path.abspath(__file__))
 def rel_path(path):
     return os.path.join(script_directory, path)
-
-class JSONValidator():
-    def __init__(self):
-
-        with open(rel_path('../../../config/course_schema.json')) as course_schema_file:
-            self.course_schema = json.load(course_schema_file)
-
-        with open(rel_path('../../../config/section_schema.json')) as section_schema_file:
-            self.section_schema = json.load(section_schema_file)
-
-        with open(rel_path('../../../config/meeting_schema.json')) as meeting_schema_file:
-            self.meeting_schema = json.load(meeting_schema_file)
-
-        pass
+class JSONValidator:
+    def __init__(self, course_schema, section_schema, meeting_schema):
+        self.course_schema = course_schema
+        self.section_schema = section_schema
+        self.meeting_schema = meeting_schema
     
     # Method for validating all courses in a json file
     def validateCourses(self, filename):
