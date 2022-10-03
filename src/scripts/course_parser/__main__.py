@@ -186,9 +186,22 @@ def main():
         file.write(courses_csv)
     print('done')
 
+    # Open the required schema files for validation
+    with open(rel_path('../../config/course_schema.json')) as course_schema_file:
+        course_schema = json.load(course_schema_file)
+
+    with open(rel_path('../../config/section_schema.json')) as section_schema_file:
+        section_schema = json.load(section_schema_file)
+
+    with open(rel_path('../../config/meeting_schema.json')) as meeting_schema_file:
+        meeting_schema = json.load(meeting_schema_file)
+
     print('Validating courses.json...', end='')
     sys.stdout.flush()
-    course_validator = json_validator.JSONValidator()
+    
+    course_validator = json_validator.JSONValidator(course_schema=course_schema,
+        section_schema=section_schema,
+        meeting_schema=meeting_schema)
 
     if course_validator.validateCourses(rel_path('../../config/courses.json')) == False:
         print('Course validation failed... exiting', end='')
