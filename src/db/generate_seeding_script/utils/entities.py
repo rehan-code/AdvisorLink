@@ -26,7 +26,7 @@ class Entity(ABC):
             col_val = getattr(self, col)
 
             # Format each column value correctly to correspond with its type in the database.
-            if (col_val == None):
+            if col_val == None:
                 values_sql.append('NULL')
             elif col_type == 'str':
                 sanitized_val = str(col_val).replace("'", "\\'")
