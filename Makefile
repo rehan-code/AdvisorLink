@@ -1,4 +1,5 @@
 PYTHON = python
+DOCKER = docker
 
 help:
 	@echo "> test ............ Run the tests"
@@ -17,3 +18,17 @@ course_config:
 
 search_cli:
 	${PYTHON} src/scripts/course_search
+
+db:
+	${DOCKER} -v
+	-${DOCKER} stop schedulerDb
+	-${DOCKER} rm schedulerDb
+	${DOCKER} pull postgres
+	${DOCKER} run \
+    --name schedulerDb \
+    -p 5455:5432 \
+    -e POSTGRES_USER=admin \
+    -e POSTGRES_PASSWORD=team106 \
+    -e POSTGRES_DB=postgres \
+    -d \
+    postgres
