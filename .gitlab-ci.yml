@@ -6,7 +6,12 @@ before_script:
 stages:
   - test
 
-test-job:
+test-html-parser:
   stage: test
   script:
-    - python3 -m unittest discover src/tests -v
+    - python3 -m unittest src/tests/test_parser.py -v
+
+test-search-cli:
+  stage: test
+  script:
+    - python3 -m unittest src/tests/test_search.py -v
