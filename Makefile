@@ -1,4 +1,4 @@
-PYTHON = python
+PYTHON = python3
 DOCKER = docker
 
 help:
@@ -32,3 +32,6 @@ db:
     -e POSTGRES_DB=postgres \
     -d \
     postgres
+
+seeding_script:
+	${PYTHON} src/db/generate_seeding_script
