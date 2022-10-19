@@ -1,0 +1,18 @@
+image: python:3.10
+
+before_script:
+  - cd prototyping
+  - python --version && pip install .
+
+stages:
+  - test
+
+test-html-parser:
+  stage: test
+  script:
+    - python3 -m unittest src/tests/test_parser.py -v
+
+test-search-cli:
+  stage: test
+  script:
+    - python3 -m unittest src/tests/test_search.py -v
