@@ -2,6 +2,7 @@ version: '3.7'
 services:
   web:
     build: ./web
+    image: registry.socs.uoguelph.ca/hnantais/f22_cis3760_team106online/web
     restart: always
     ports:
       - "80:80"
@@ -12,6 +13,7 @@ services:
 
   server:
     build: ./server
+    image: registry.socs.uoguelph.ca/hnantais/f22_cis3760_team106online/server
     restart: always
     networks:
       - my-network
