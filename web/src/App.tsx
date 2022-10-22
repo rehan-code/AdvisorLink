@@ -9,7 +9,7 @@ function App() {
       // console.log(response.json());
       setData(await response.json());
     });
-  });
+  }, []);
 
   return (
     <p>{data?.message ?? 'Loading...'}</p>
