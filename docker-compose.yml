@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  web:
+    build: ./web
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    restart: always
+    networks:
+      - my-network
+
+networks:
+  my-network:
