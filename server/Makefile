@@ -8,4 +8,4 @@ debug:
 	${PYTHON} app.py
 
 production:
-	gunicorn -w2 -b 0.0.0.0:5000 'wsgi:app'
+	gunicorn -w2 -b 0.0.0.0:5000 'wsgi:app' --daemon
