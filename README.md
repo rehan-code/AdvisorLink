@@ -10,4 +10,5 @@ Users can also receive course suggestions based on preferences such as what time
 - These can be installed with the `install.sh` script.
 
 ### Usage
-- Run...
+- Run "./install.sh" to install required services, if needed
+- Use "sudo make production" to run the web server using gunicorn
