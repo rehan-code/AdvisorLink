@@ -6,7 +6,7 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
 
 ### Requirements
 - Python3, node, yarn, Flask, gunicorn
-- These can be manually installed with:
+- These requirements are automatically installed with the Makefile, or can be manually installed using:
 
             `$ sudo ./install.sh`
 
