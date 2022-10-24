@@ -11,8 +11,10 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
             `$ sudo ./install.sh`
 
 ### Usage
-- Use "sudo make production" to run the web server using gunicorn
-- To run the server in debug mode
+- To run the production web server:
+
+        `$ sudo make production`
+- To run the server in debug mode:
     - Run the following command: 
 
             `$ make debug_flask`
