@@ -17,3 +17,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hero-section {
+  @apply h-screen w-screen flex justify-center items-center;
+  background: url("./static/gwelf.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
