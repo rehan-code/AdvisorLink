@@ -3,7 +3,7 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/api')
+@app.route('/')
 def ding():
     return json.dumps({'message': 'Ding!'})
 
