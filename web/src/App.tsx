@@ -30,7 +30,7 @@ function App() {
             </form>
           </div>
           <div className='p-12 w-full h-full'>
-            <div className='p-10 bg-white rounded-lg'>Results appears here...</div>
+            <div className='p-10 bg-white rounded-lg'>Results appear here...</div>
           </div>
         </div>
       </div>
