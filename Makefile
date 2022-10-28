@@ -3,8 +3,8 @@ PYTHON=python3
 help:
 	@echo "> make debug_flask ............ Run the flask web server in debug mode (hot refresh)"
 	@echo "> sudo make production ...... Run the nginx + flask web server using gunicorn wsgi"
-	@echo "> sudo make build_images ...... Build docker images for flask and nginx server, uploading to gitlab container registry"
-	@echo "> sudo make deploy_images ...... Triggers a webhook on Azure to pull the latest image versions from gitlab container registry"
+	@echo "> make build_images ...... Build docker images for flask and nginx server, uploading to gitlab container registry"
+	@echo "> make deploy_images ...... Triggers a webhook on Azure to pull the latest image versions from gitlab container registry"
 
 debug_flask:
 	${PYTHON} ./server/app.py
