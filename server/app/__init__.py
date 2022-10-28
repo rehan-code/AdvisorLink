@@ -3,9 +3,7 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/')
-def ding():
-    return json.dumps({'message': 'Ding!'})
+from app import api
 
 @app.errorhandler(404)
 def not_found(error=None):
