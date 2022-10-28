@@ -1,21 +1,16 @@
 version: '3.8'
 services:
   web:
-    build:
-      context: ./web
-      target: build
     image: registry.socs.uoguelph.ca/hnantais/f22_cis3760_team106online/web
-    command: yarn start
     restart: always
     ports:
-      - "3000:3000"
+      - "80:80"
     networks:
       - my-network
     depends_on:
       - server
 
   server:
-    build: ./server
     image: registry.socs.uoguelph.ca/hnantais/f22_cis3760_team106online/server
     restart: always
     networks:
