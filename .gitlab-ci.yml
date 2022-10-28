@@ -8,11 +8,11 @@ include:
 
 build-images:
   stage: build
-  image: docker:19.03
+  image: docker:latest
   tags:
     - docker-priv
   services:
-    - docker:19.03-dind
+    - docker:dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   script:
