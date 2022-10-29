@@ -1,5 +1,8 @@
 from flask import Flask, request
 import json
+from app.library.course_search import SearchUtil
+
+searchUtil = SearchUtil()
 
 app = Flask(__name__)
 
