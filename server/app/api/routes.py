@@ -20,7 +20,7 @@ def all():
 # Search courses by criteria
 @app.route('/sections/search', methods = ['GET'])
 def search():
-    sections = searchUtil.search(**request.json.get('search_by'))
+    sections = searchUtil.search(**request.json.get('query'))
     searchResultJson = []
     for section in sections:
         searchResultJson.append(section.toJson())
