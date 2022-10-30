@@ -1,5 +1,12 @@
 from flask import Flask, request
 import json
+import pandas as pd
+
+courseList = pd.read_excel('prototyping/course_schedule_spreadsheet.xlsm', sheet_name='course list')
+# accessing column: courselist['column name']
+# accessing: courselist.loc[start:stop:step]
+
+# print(courseList)
 
 app = Flask(__name__)
 
