@@ -163,3 +163,6 @@ get_hours.py
 gitlab_sprint_weight.csv
 .DS_STORE
 src/db/seeding_script.sql
+
+# IDE
+.vscode
