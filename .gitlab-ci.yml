@@ -1,2 +1,5 @@
+stages:
+  - test
+
 include:
   - 'prototyping/pipeline.yml'
