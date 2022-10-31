@@ -15,6 +15,7 @@ FROM nginx:1.23
 
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
 COPY --from=build /usr/src/app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/src/app/nginx/certs /etc/ssl/
 
 EXPOSE 80
 

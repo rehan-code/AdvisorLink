@@ -7,15 +7,6 @@ import Main from "./components/Main";
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [data, setData] = useState<any>(null);
-  
-  useEffect(() => {
-    fetch('/api').then(async (response) => {
-      // console.log(response.json());
-      setData(await response.json());
-    });
-  }, []);
-
   return (
     <div className="App">
       <Navbar />
