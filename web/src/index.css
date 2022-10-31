@@ -16,7 +16,11 @@ code {
     monospace;
 }
 
-.hero-section {
+.section {
+  @apply h-screen w-screen flex justify-center;
+}
+
+.hero {
   @apply h-screen w-screen flex justify-center items-center;
   background: url("./static/guelph.png");
   background-repeat: no-repeat;
