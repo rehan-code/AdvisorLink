@@ -3,12 +3,12 @@ from flask import request
 import json
 
 # Example
-@app.route('/')
+@app.route('/api')
 def ding():
     return json.dumps({'message': 'Ding!'})
 
 # Get all the sections
-@app.route('/sections', methods = ['GET'])
+@app.route('/api/sections', methods = ['GET'])
 def all():
     sections = searchUtil.all()
     searchResultJson = []
@@ -18,7 +18,7 @@ def all():
     return json.dumps({'sections' : searchResultJson})
 
 # Search courses by criteria
-@app.route('/sections/search', methods = ['GET'])
+@app.route('/api/sections/search', methods = ['GET'])
 def search():
     sections = searchUtil.search(**request.json.get('query'))
     searchResultJson = []
