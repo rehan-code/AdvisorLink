@@ -26,5 +26,3 @@ def search():
         searchResultJson.append(section.toJson())
 
     return json.dumps({'sections' : searchResultJson})
-
-

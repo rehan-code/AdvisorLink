@@ -1,12 +1,12 @@
 from flask import Flask, request
+from library.course_search import SearchUtil
 import json
-from app.library.course_search import SearchUtil
 
 searchUtil = SearchUtil()
 
 app = Flask(__name__)
 
-from app import api
+import api
 
 @app.errorhandler(404)
 def not_found(error=None):
