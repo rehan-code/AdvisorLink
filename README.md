@@ -12,9 +12,13 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
 
 ### Usage
 - To run the production web server run:
+
         `$ ssh team106@advisorlink.ml`
+
         `cd git/f22_cis3760_team106online`
+
         `git pull`
+
         `$ sudo make production`
 - To run the server in debug mode:
     - Run the following command: 
