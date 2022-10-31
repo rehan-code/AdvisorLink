@@ -4,8 +4,6 @@
 
 This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, TypeScript, and hosted on Azure. This prototype will serve as the foundation for upcoming sprints. The homepage can be found at [advisorlink.ml](http://advisorlink.ml).
 
-![Screenshot__151_](uploads/26bdc21fd7c25569cdada0626ed58e55/Screenshot__151_.png)
-
 ### Requirements
 - Python3, node, yarn, Flask, gunicorn
 - These requirements can be automatically installed with the Makefile or can be manually installed with:
