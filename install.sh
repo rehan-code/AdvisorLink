@@ -22,5 +22,5 @@ yarn build
 
 # Installation steps for nginx
 sudo apt install -y nginx
-sudo cp nginx/nginx-vm.conf /etc/nginx/sites-available/default
+sudo cp nginx/nginx.conf /etc/nginx/sites-available/default
 sudo cp -r build/* /usr/share/nginx/html
