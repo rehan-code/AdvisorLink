@@ -1,7 +1,5 @@
 @tailwind base;
-
 @tailwind utilities;
-
 @tailwind components;
 
 body {
@@ -20,7 +18,7 @@ code {
 
 .hero-section {
   @apply h-screen w-screen flex justify-center items-center;
-  background: url("./static/gwelf.png");
+  background: url("./static/guelph.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

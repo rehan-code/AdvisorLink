@@ -6,7 +6,9 @@ sudo apt install -y software-properties-common
 sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt -y update
 sudo apt -y upgrade
+sudo apt install -y libbz2-dev # for pandas
 sudo apt install -y python3
+sudo apt install -y python3-pip
 sudo pip3 install -r requirements.txt
 
 # Installation steps for react
@@ -21,5 +23,5 @@ yarn build
 
 # Installation steps for nginx
 sudo apt install -y nginx
-sudo cp nginx/nginx.conf /etc/nginx/sites-available/default
+sudo cp nginx/nginx-vm.conf /etc/nginx/sites-available/default
 sudo cp -r build/* /usr/share/nginx/html

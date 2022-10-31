@@ -1,11 +1,12 @@
 from flask import Flask, request
+from library.course_search import SearchUtil
 import json
+
+searchUtil = SearchUtil()
 
 app = Flask(__name__)
 
-@app.route('/')
-def ding():
-    return json.dumps({'message': 'Ding!'})
+from api.routes import *
 
 @app.errorhandler(404)
 def not_found(error=None):
