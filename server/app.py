@@ -6,7 +6,7 @@ searchUtil = SearchUtil()
 
 app = Flask(__name__)
 
-import api
+from api.routes import *
 
 @app.errorhandler(404)
 def not_found(error=None):
