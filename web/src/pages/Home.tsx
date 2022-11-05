@@ -9,7 +9,7 @@ const Home = () => {
     let meetingList = [{ title: 'CIS3210', startRecurrence: '2022-09-07', endRecurrence: '2022-12-07', daysOfWeek: [2, 4], startTime: '08:30', endTime: '10:30' },
     { title: 'CIS2500', startRecurrence: '2022-09-07', endRecurrence: '2022-12-07', daysOfWeek: [1, 3, 5], startTime: '12:30', endTime: '14:30', color: 'purple' },] 
 
-    // function should add course to the meeting list
+    // function should add course to the meeting list (uses dummy data for now)
     function addCourseToMeeting(course1: string) {
 
          let testCourse = {
@@ -86,7 +86,7 @@ const Home = () => {
 
         const button: HTMLButtonElement = event.currentTarget;
         setClickedButton(true);
-        addCourseToMeeting("test");
+        addCourseToMeeting("test"); //change this to pass in actual course data into addCourseToMeeting
     }
 
     return (
