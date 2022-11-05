@@ -14,6 +14,7 @@ install:
 	sudo ./install.sh
 
 prod_nginx:
+	cd web/ && yarn install && yarn build
 	sudo cp web/nginx/nginx.conf /etc/nginx/sites-available/default
 	sudo cp -r web/build/* /usr/share/nginx/html
 	sudo service nginx restart

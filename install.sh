@@ -17,8 +17,6 @@ sudo npm install -g n
 sudo npm install -g yarn
 sudo n 18.6.0
 hash -r
-yarn install
-yarn build
 
 # Installation steps for nginx
 sudo apt install -y nginx
