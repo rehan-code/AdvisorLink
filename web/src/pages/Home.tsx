@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CourseList from "../components/CourseList";
 import { CourseTable } from "../components/course-table";
 
 const Home = () => {
