@@ -1,4 +1,5 @@
 PYTHON=python3
+DOCKER=docker
 
 help:
 	@echo "> make debug_flask ............ Run the flask web server in debug mode (hot refresh)"
@@ -12,3 +13,16 @@ production:
 	sudo service nginx restart
 	sudo killall gunicorn || true
 	gunicorn -w2 -b 0.0.0.0:5000 --certfile=/etc/ssl/cert.crt --keyfile=/etc/ssl/private.key --chdir server 'wsgi:app' --daemon
+
+db:
+	${DOCKER} -v
+	-${DOCKER} stop advisorlink
+	-${DOCKER} rm advisorlink
+	${DOCKER} pull postgres
+	${DOCKER} run --name advisorlink \
+    -e POSTGRES_PASSWORD=Fall2022CIS3760 \
+    -e POSTGRES_USER=admin \
+    -e POSTGRES_DB=advisorlink \
+    -p 5432:5432 \
+    -d postgres
+	${PYTHON} server/scripts/seed_database.py
