@@ -3,7 +3,7 @@ import Schedule from './Schedule';
 
 const queryRegex = /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference 
 
-interface Section {
+export interface Section {
 	name: string,
 	code: string,
 	number: string,

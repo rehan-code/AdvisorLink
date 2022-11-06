@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function SectionRow(props: { data: any }) {
+function SectionRow(props: { data: any, key: string }) {
     return (
         <li className="p-4 m-4 border-slate-50 border rounded-md">
             <div className="flex flex-row">
@@ -36,7 +36,7 @@ export default function SectionList(props: { sections: any[], loading?: boolean 
                         ? "No Results Found"
                         :
                         <ul>
-                            {props.sections.map((section) => <SectionRow data={section} key={section.id} />)}
+                            {props.sections.map((section) => <SectionRow data={section} key={section.faculty + section.code + section.number} />)}
                         </ul>)}
             </div>
         </div>

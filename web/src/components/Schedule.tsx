@@ -1,33 +1,10 @@
 import React from 'react';
 import FullCalendar, { EventSourceInput } from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { Section } from './CalendarComponent';
 
 const daysOfWeek = ['MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
 var randomColor = require('randomcolor');
-
-interface Section {
-    name: string,
-    code: string,
-    number: string,
-    faculty: string,
-    weight: number,
-    instructor: string,
-    term: string,
-    location: string,
-    capacity: number,
-    enrolled: number,
-    meetings: [
-        {
-            building: string,
-            date: string,
-            days: string[],
-            start_time: string,
-            end_time: string,
-            room: string,
-            type: string
-        }
-    ]
-}
 
 interface Event {
     title: string,

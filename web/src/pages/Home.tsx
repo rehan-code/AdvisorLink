@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SectionList from "../components/CourseList";
+import SectionList from "../components/SectionList";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
