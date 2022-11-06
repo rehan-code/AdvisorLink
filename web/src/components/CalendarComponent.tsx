@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
-import FullCalendar, { EventSourceInput } from '@fullcalendar/react';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import Schedule from './Schedule';
 
 const queryRegex = /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference 
 
@@ -66,7 +65,6 @@ export default function CalendarComponent() {
 		let { sections } = await searchResults.json();
 		setSections(sections);
 	}
-
 
 	// Memoize previous results
 	const renderSearchTable = useCallback(() => {
@@ -181,47 +179,15 @@ export default function CalendarComponent() {
 				</div>
 			</div>
 			<div className="flex items-center justify-start w-8/12 rounded-md px-10 py-10 bg-gray-300">
-					<div className="w-full">
-						<h1 className="text-2xl font-bold pb-8">My Courses</h1>
-						<div className="w-full bg-white rounded-md h-64 overflow-auto">
-							{renderCourseTable()}
-						</div>
+				<div className="w-full">
+					<h1 className="text-2xl font-bold pb-8">My Courses</h1>
+					<div className="w-full bg-white rounded-md h-64 overflow-auto">
+						{renderCourseTable()}
 					</div>
 				</div>
+			</div>
 			<div className="p-40">
-				<FullCalendar
-					plugins={[timeGridPlugin]}
-					headerToolbar={{
-						left: 'today',
-						center: 'title',
-						right: 'prev,next'
-					}}
-					initialView="timeGridWeek"
-					weekends={true}
-					events={[
-						{
-							title: 'CIS3210',
-							startRecurrence: '2022-09-07',
-							endRecurrence: '2022-12-07',
-							daysOfWeek: [2, 4],
-							startTime: '08:30',
-							endTime: '10:30'
-						},
-						{
-							title: 'CIS1500',
-							startRecurrence: '2022-09-07',
-							endRecurrence: '2022-12-07',
-							daysOfWeek: [1, 3, 5],
-							startTime: '12:30',
-							endTime: '14:30',
-							color: '#000'
-						}
-					]}
-					slotMinTime="07:00:00"
-					slotMaxTime="23:00:00"
-					allDaySlot={false}
-					contentHeight="auto"
-				/>
+				<Schedule events={scheduleSections} />
 			</div>
 		</div>
 	);
