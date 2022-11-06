@@ -27,17 +27,19 @@ function getDaysOfWeekInteger(days: string[]) {
 function createCalendarEvents(sections: Section[]) {
     let events: Event[] = [];
     sections.forEach((section) => {
-        var color = randomColor();
-        section.meetings.forEach((meeting) => {
-            events.push({
-                // FIX THIS - meeting type in 'MeetingType.TYPE' format
-                title: section.faculty + '*' + section.code + '*' + section.number + '\n' + meeting.type.substring(12),
-                daysOfWeek: getDaysOfWeekInteger(meeting.days),
-                startTime: meeting.start_time,
-                endTime: meeting.end_time,
-                color: color
+        if (!section.number.includes("DE")) {
+            var color = randomColor();
+            section.meetings.forEach((meeting) => {
+                events.push({
+                    // FIX THIS - meeting type in 'MeetingType.TYPE' format
+                    title: section.faculty + '*' + section.code + '*' + section.number + '\n' + meeting.type.substring(12),
+                    daysOfWeek: getDaysOfWeekInteger(meeting.days),
+                    startTime: meeting.start_time,
+                    endTime: meeting.end_time,
+                    color: color
+                })
             })
-        })
+        }
     })
 
     return events;
