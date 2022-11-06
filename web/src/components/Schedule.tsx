@@ -28,7 +28,7 @@ function createCalendarEvents(sections: Section[]) {
     let events: Event[] = [];
     sections.forEach((section) => {
         if (!section.number.includes("DE")) {
-            var color = randomColor();
+            var color = randomColor({ luminosity: 'dark' });
             section.meetings.forEach((meeting) => {
                 events.push({
                     // FIX THIS - meeting type in 'MeetingType.TYPE' format
@@ -61,6 +61,11 @@ export default function Schedule(props: any) {
                 }}
                 initialView="timeGridWeek"
                 weekends={true}
+                eventDidMount={
+                    function (info) {
+
+                    }
+                }
                 events={createCalendarEvents(props.events)}
                 slotMinTime="07:00:00"
                 slotMaxTime="23:00:00"
