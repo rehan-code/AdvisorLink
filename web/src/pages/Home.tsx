@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CourseTable } from "../components/course-table";
+import SectionList from "../components/CourseList";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
@@ -43,15 +43,12 @@ const Home = () => {
               ></input>
             </div>
             <div className="p-3"></div>
-            <div className="grid md:grid-cols-3 w-full gap-6 h-10">
+            <div className="grid md:grid-cols-2 w-full gap-6 h-10">
               <button
                 type="submit"
                 className="text-black bg-white hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Find Sections
-              </button>
-              <button className="text-black bg-white hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Suggest Sections
               </button>
               <button
                 type="submit"
@@ -63,9 +60,9 @@ const Home = () => {
             </div>
           </form>
         </div>
-        <div className="p-6 w-full h-full">
+        <div className="p-12 w-full h-full">
           {hasSearched && (
-            <CourseTable sections={sections} loading={sectionsLoading} />
+            <SectionList sections={sections} loading={sectionsLoading} />
           )}
         </div>
       </div>
