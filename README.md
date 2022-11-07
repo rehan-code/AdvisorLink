@@ -2,7 +2,7 @@
 
 ### Description
 
-This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, TypeScript, and hosted on Azure. This prototype will serve as the foundation for upcoming sprints. The homepage can be found at [advisorlink.ml](http://advisorlink.ml).
+This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, TypeScript, and hosted on Azure. This prototype will serve as the foundation for upcoming sprints. The homepage can be found at [www.advisorlink.ml](http://advisorlink.ml).
 
 ### Requirements
 
@@ -22,6 +22,10 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
         `$ git pull`
 
         `$ sudo make production`
+
+- If the PostgreSQL database is not running already you can start that with:
+
+        `$ make db`
 
 - To run the server in debug mode:
 
