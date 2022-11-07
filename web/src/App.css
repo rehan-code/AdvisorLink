@@ -50,3 +50,8 @@ html {
   max-height: 20vh;
   color: white;
 }
+
+tr:nth-child(even) {
+  border-bottom: solid black 1px;
+  border-top: solid black 1px;
+}
