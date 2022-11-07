@@ -34,6 +34,7 @@ class CourseSection(db.Model):
 
     def toClientJson(self):
         return {
+            'id' : str(self.id),
             'name' : self.course.name,
             'faculty' : self.course.faculty.code,
             'code' : self.course.course_code,
