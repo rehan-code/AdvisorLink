@@ -30,3 +30,10 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
             `$ yarn install`
             `$ yarn start`
 
+### To Create a Course Schedule
+- On the Calendar page, you can search and add courses using the search bar at the top of the page.
+
+        - Using the search bar, the user can search for courses by name, course code and professor
+        - Results of the search will show up in the My Courses section of the page, which will show as a list of courses
+        - When the user selects a course, the course will be automatically added to the calendar below the search bar
+        - If there is a conflict, the user will be notified with a message above the calendar with the courses that are conflicting
