@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import SectionList from "../components/SectionList";
+import React, { useState } from 'react';
+import SectionList from '../components/SectionList';
 
-const Home = () => {
-  const [query, setQuery] = useState<string>("");
+function Home() {
+  const [query, setQuery] = useState<string>('');
   const [hasSearched, setHasSearched] = useState(false);
   const [sections, setSections] = React.useState<any[]>([]);
   const [sectionsLoading, setSectionsLoading] = React.useState(false);
@@ -10,7 +10,7 @@ const Home = () => {
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setSectionsLoading(true);
-    const res = await fetch("/api/sections");
+    const res = await fetch('/api/sections');
     setSections((await res.json()).sections);
     setHasSearched(true);
     setSectionsLoading(false);
@@ -20,7 +20,7 @@ const Home = () => {
     event.preventDefault();
     if (!query) return;
     setSectionsLoading(true);
-    const res = await fetch("/api/sections?" + new URLSearchParams({ query }));
+    const res = await fetch(`/api/sections?${new URLSearchParams({ query })}`);
     setSections((await res.json()).sections);
     setHasSearched(true);
     setSectionsLoading(false);
@@ -40,9 +40,9 @@ const Home = () => {
                 placeholder="Search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-              ></input>
+              />
             </div>
-            <div className="p-3"></div>
+            <div className="p-3" />
             <div className="grid md:grid-cols-2 w-full gap-6 h-10">
               <button
                 type="submit"
@@ -68,6 +68,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;

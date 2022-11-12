@@ -1,8 +1,8 @@
-import "./App.css";
-import "./index.css";
+import './App.css';
+import './index.css';
 
-import Main from "./components/Main";
-import Page from "./components/Page";
+import Main from './components/Main';
+import Page from './components/Page';
 
 function App() {
   return (

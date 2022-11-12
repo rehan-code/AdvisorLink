@@ -1,10 +1,14 @@
-import React from "react";
-import FullCalendar, { EventSourceInput } from "@fullcalendar/react";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import { Section } from "./CalendarComponent";
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable func-names */
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React from 'react';
+import FullCalendar, { EventSourceInput } from '@fullcalendar/react';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { Section } from './CalendarComponent';
 
-const daysOfWeek = ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"];
-var randomColor = require("randomcolor");
+const daysOfWeek = ['MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
+const randomColor = require('randomcolor');
 
 interface Event {
   title: string;
@@ -15,7 +19,7 @@ interface Event {
 }
 
 function getDaysOfWeekInteger(days: string[]) {
-  let daysInt: number[] = [];
+  const daysInt: number[] = [];
   days.forEach((day) => {
     // FIX THIS - why am I getting days in 'DayOfWeek.DAY' format
     daysInt.push(daysOfWeek.indexOf(day.substring(10)) + 1);
@@ -25,9 +29,9 @@ function getDaysOfWeekInteger(days: string[]) {
 }
 
 function createCalendarEvents(sections: Section[]) {
-  let events: Event[] = [];
+  const events: Event[] = [];
   sections.forEach((section) => {
-    let color = randomColor({ luminosity: "dark" });
+    const color = randomColor({ luminosity: 'dark' });
     section.meetings
       .filter((m) => m.start_time && m.end_time && m.days)
       .forEach((meeting) => {
@@ -39,7 +43,7 @@ function createCalendarEvents(sections: Section[]) {
           daysOfWeek: getDaysOfWeekInteger(meeting.days),
           startTime: meeting.start_time,
           endTime: meeting.end_time,
-          color: color,
+          color,
         });
       });
   });
@@ -54,16 +58,16 @@ export default function Schedule(props: any) {
       <FullCalendar
         plugins={[timeGridPlugin]}
         headerToolbar={{
-          left: "",
-          center: "",
-          right: "",
+          left: '',
+          center: '',
+          right: '',
         }}
         dayHeaderFormat={{
-          weekday: "short",
+          weekday: 'short',
         }}
         initialView="timeGridWeek"
-        weekends={true}
-        eventDidMount={function (info) {}}
+        weekends
+        eventDidMount={function (_info) {}}
         events={createCalendarEvents(props.events)}
         slotMinTime="07:00:00"
         slotMaxTime="23:00:00"
