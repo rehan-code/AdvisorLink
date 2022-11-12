@@ -1,9 +1,7 @@
-const About = () => {
-    return (
-        <div className='h-screen'>
-            
-        </div>
-    )
+function About() {
+  return (
+    <div className="h-screen" />
+  );
 }
 
 export default About;
