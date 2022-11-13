@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import Schedule from './Schedule';
+import { Multibutton } from './Multibutton';
 
 const queryRegex = /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference
 
@@ -31,6 +32,7 @@ export interface Section {
 export default function CalendarComponent() {
   const [filters, setFilters] = useState<string[] | undefined>([]); // Save for future reference
   const [query, setQuery] = useState<string | string[][]>('');
+  const [queryType, setQueryType] = useState('all');
   const [courseSections, setSections] = useState<Section[]>([]);
 
   // Stores the schedule to use with FullCalendar
@@ -64,7 +66,7 @@ export default function CalendarComponent() {
     event.preventDefault();
 
     const searchResults = await fetch(
-      `/api/sections?${new URLSearchParams(`query=${query}`)}`,
+      `/api/sections?${new URLSearchParams(`query=${query}&queryType=${queryType}`)}`,
     );
     const { sections } = await searchResults.json();
     setSections(sections);
@@ -113,13 +115,13 @@ export default function CalendarComponent() {
                     onChange={(event: ChangeEvent<HTMLInputElement>) => updateQuery(event)}
                   />
                   <div className="flex justify-evenly items-center p-4">
-                    <button
-                      className="py-4 px-8 bg-blue-500 rounded-md text-white hover:bg-blue-800 font-bold"
-                      type="submit"
+                    <Multibutton
                       onClick={searchSections}
+                      selectValue={queryType}
+                      setSelectValue={setQueryType}
                     >
                       Search
-                    </button>
+                    </Multibutton>
                   </div>
                 </form>
               </div>
