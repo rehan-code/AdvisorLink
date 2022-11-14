@@ -5,7 +5,6 @@ import React from 'react';
 function SectionRow(props: { data: any; key: string }) {
   return (
     <li className="p-4 m-4 border-slate-50 border rounded-md">
-      HELLO
       <div className="flex flex-row">
         <div className="flex-1">
           {`${props.data.faculty}*${props.data.code}*${props.data.number}`}

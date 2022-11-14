@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import Schedule from './Schedule';
 import { Multibutton } from './Multibutton';
 
@@ -30,13 +31,21 @@ export interface Section {
 }
 
 export default function CalendarComponent() {
+  const [cookies, setCookie] = useCookies(['schedule']);
+
   const [filters, setFilters] = useState<string[] | undefined>([]); // Save for future reference
   const [query, setQuery] = useState<string | string[][]>('');
   const [queryType, setQueryType] = useState('all');
   const [courseSections, setSections] = useState<Section[]>([]);
 
   // Stores the schedule to use with FullCalendar
-  const [scheduleSections, setScheduleSections] = useState<Section[]>([]);
+  const [scheduleSections, setScheduleSections] = useState<Section[]>(
+    cookies.schedule ? cookies.schedule : [],
+  );
+
+  useEffect(() => {
+    setCookie('schedule', scheduleSections, { path: '/' });
+  }, [scheduleSections]);
 
   // Break search field into queryable strings
   const updateFilters = (event: ChangeEvent<HTMLInputElement>) => {
@@ -270,8 +279,7 @@ function MeetingRow(props: any) {
     <div>
       {meeting.type.split('.')[1]}
       {!!meeting.days
-        && ` on ${
-          meeting.days?.map((d: string) => d.split('.')[1]).join(', ')}`}
+        && ` on ${meeting.days?.map((d: string) => d.split('.')[1]).join(', ')}`}
       {' '}
       {!!(meeting.start_time !== 'None' && meeting.end_time !== 'None')
         && `at ${meeting.start_time}-${meeting.end_time}`}

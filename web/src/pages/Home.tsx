@@ -1,29 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import SectionList from '../components/SectionList';
 
 function Home() {
-  const [query, setQuery] = useState<string>('');
-  const [hasSearched, setHasSearched] = useState(false);
-  const [sections, setSections] = React.useState<any[]>([]);
-  const [sectionsLoading, setSectionsLoading] = React.useState(false);
+  const [cookies, setCookie] = useCookies(['query']);
+  const [query, setQuery] = useState<string>(
+    cookies.query ? cookies.query : '',
+  );
+  const [hasSearched, setHasSearched] = useState<Boolean>(false);
+  const [sections, setSections] = useState<any[]>([]);
+  const [sectionsLoading, setSectionsLoading] = useState(false);
+
+  useEffect(() => {
+    setCookie('query', query, { path: '/' });
+  }, [query]);
 
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setSectionsLoading(true);
-    const res = await fetch('/api/sections');
-    setSections((await res.json()).sections);
-    setHasSearched(true);
-    setSectionsLoading(false);
+    await fetch('/api/sections')
+      .then((data) => data.json())
+      .then((data) => {
+        setSections(data.sections);
+        setHasSearched(true);
+        setSectionsLoading(false);
+      });
   };
 
   const formSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!query) return;
     setSectionsLoading(true);
-    const res = await fetch(`/api/sections?${new URLSearchParams({ query })}`);
-    setSections((await res.json()).sections);
-    setHasSearched(true);
-    setSectionsLoading(false);
+    await fetch(`/api/sections?${new URLSearchParams({ query })}`)
+      .then((data) => data.json())
+      .then((data) => {
+        setSections(data.sections);
+        setHasSearched(true);
+        setSectionsLoading(false);
+      });
   };
 
   return (
