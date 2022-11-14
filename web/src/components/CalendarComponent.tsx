@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import Schedule from './Schedule';
 
@@ -40,6 +40,10 @@ export default function CalendarComponent() {
   const [scheduleSections, setScheduleSections] = useState<Section[]>(
     cookies.schedule ? cookies.schedule : [],
   );
+
+  useEffect(() => {
+    setCookie('schedule', scheduleSections, { path: '/' });
+  }, [scheduleSections]);
 
   // Break search field into queryable strings
   const updateFilters = (event: ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +90,6 @@ export default function CalendarComponent() {
     const tempSchedule = [...scheduleSections];
     tempSchedule.push(section);
 
-    setCookie('schedule', tempSchedule, { path: '/' });
     setScheduleSections(tempSchedule);
   };
 
@@ -99,7 +102,6 @@ export default function CalendarComponent() {
     const tempSchedule = [...scheduleSections];
     tempSchedule.splice(index, 1);
 
-    setCookie('schedule', tempSchedule, { path: '/' });
     setScheduleSections(tempSchedule);
   };
 
