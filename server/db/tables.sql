@@ -1,4 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 
 DROP TABLE IF EXISTS MEETING;
 DROP TABLE IF EXISTS COURSE_SECTION;
@@ -52,6 +53,10 @@ CREATE TABLE course_section (
   instructor VARCHAR(255),
   location VARCHAR(255),
 
+  -- These columns should only ever be used in search
+  search_course_code VARCHAR(255),
+  search_all_tags VARCHAR(4095),
+
   FOREIGN KEY (course_id) REFERENCES course (id),
   FOREIGN KEY (term_id) REFERENCES term (id)
 );
@@ -72,7 +77,22 @@ CREATE TABLE meeting (
   FOREIGN KEY (course_section_id) REFERENCES course_section (id)
 );
 
--- Alter course table to add search capabilities
-ALTER TABLE course ADD COLUMN ts tsvector
+-- Add searching capability by course name
+ALTER TABLE course ADD COLUMN ts_name tsvector
     GENERATED ALWAYS AS (to_tsvector('english', name)) STORED;
-CREATE INDEX ts_idx ON course USING GIN (ts);
+CREATE INDEX ts_name_idx ON course USING GIN (ts_name);
+
+-- Add searching capability by section instructor
+ALTER TABLE course_section ADD COLUMN ts_instructor tsvector
+    GENERATED ALWAYS AS (to_tsvector('english', instructor)) STORED;
+CREATE INDEX ts_instructor_idx ON course_section USING GIN (ts_instructor);
+
+-- Add searching capability by section code generated for search
+ALTER TABLE course_section ADD COLUMN ts_search_course_code tsvector
+    GENERATED ALWAYS AS (to_tsvector('english', search_course_code)) STORED;
+CREATE INDEX ts_search_course_code_idx ON course_section USING GIN (ts_search_course_code);
+
+-- Add searching capability by section code generated for search
+ALTER TABLE course_section ADD COLUMN ts_search_all_tags tsvector
+    GENERATED ALWAYS AS (to_tsvector('english', search_all_tags)) STORED;
+CREATE INDEX ts_search_all_tags_idx ON course_section USING GIN (ts_search_all_tags);

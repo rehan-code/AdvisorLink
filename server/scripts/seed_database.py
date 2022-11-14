@@ -25,6 +25,11 @@ schemaFile = open(rel_path("../db/tables.sql"), "r")
 schemaSQL = schemaFile.read()
 schemaFile.close()
 
+# Load the search building query
+searchQueryFile = open(rel_path("../db/build_search_data.sql"), "r")
+buildSearchSQL = searchQueryFile.read()
+searchQueryFile.close()
+
 with app.app_context():
     print('Opening courses.json ...')
     with open(rel_path('../library/config/courses.json'), 'r', encoding='utf-8') as file:
@@ -104,6 +109,10 @@ with app.app_context():
     db.session.add_all(sections)
     db.session.commit()
     db.session.add_all(meetings)
+    db.session.commit()
+
+    print('Generating additional search columns ...')
+    db.session.execute(buildSearchSQL)
     db.session.commit()
 
     print('Done !')
