@@ -13,7 +13,7 @@ SECTIONS_SEARCH_QUERY_TYPES = {
     # format: <input>: [<table>, <column>, <sort by SIMILARITY>]
     'all': ['course_section', 'search_all_tags', True],
     'title': ['course', 'name', True],
-    'code': ['course_section', 'search_course_code', False],
+    'code': ['course_section', 'search_course_code', True],
     'instructor': ['course_section', 'instructor', True]
 }
 
