@@ -6,11 +6,47 @@ stages:
 include:
   - 'prototyping/pipeline.yml'
 
+lint-flask:
+  stage: lint
+  image: python:3.10
+  before_script:
+    - cd server/
+    - python --version
+    - pip install -r requirements.txt
+  script:
+    - flake8
+
+lint-react:
+  stage: lint
+  image: node:18
+  before_script:
+    - cd web/
+    - yarn install
+  script:
+    - yarn lint
+
+test-flask:
+  stage: test
+  image: python:3.10
+  before_script:
+    - cd server/
+    - python --version
+    - pip install -r requirements.txt
+  script:
+    - python3 -m unittest tests/test_endpoints.py -v
+
+test-react:
+  stage: test
+  image: node:18
+  before_script:
+    - cd web/
+    - yarn install
+  script:
+    - yarn test
+
 deploy-server:
   stage: deploy
   image: alpine:latest
-  # dependencies:
-  #   - test
   before_script:
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
     - eval $(ssh-agent -s)
