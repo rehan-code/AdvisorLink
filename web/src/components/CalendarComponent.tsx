@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import Schedule from './Schedule';
 
 const queryRegex = /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference
@@ -29,12 +30,16 @@ export interface Section {
 }
 
 export default function CalendarComponent() {
+  const [cookies, setCookie] = useCookies(['schedule']);
+
   const [filters, setFilters] = useState<string[] | undefined>([]); // Save for future reference
   const [query, setQuery] = useState<string | string[][]>('');
   const [courseSections, setSections] = useState<Section[]>([]);
 
   // Stores the schedule to use with FullCalendar
-  const [scheduleSections, setScheduleSections] = useState<Section[]>([]);
+  const [scheduleSections, setScheduleSections] = useState<Section[]>(
+    cookies.schedule ? cookies.schedule : [],
+  );
 
   // Break search field into queryable strings
   const updateFilters = (event: ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +86,7 @@ export default function CalendarComponent() {
     const tempSchedule = [...scheduleSections];
     tempSchedule.push(section);
 
+    setCookie('schedule', tempSchedule, { path: '/' });
     setScheduleSections(tempSchedule);
   };
 
@@ -93,6 +99,7 @@ export default function CalendarComponent() {
     const tempSchedule = [...scheduleSections];
     tempSchedule.splice(index, 1);
 
+    setCookie('schedule', tempSchedule, { path: '/' });
     setScheduleSections(tempSchedule);
   };
 
@@ -268,8 +275,7 @@ function MeetingRow(props: any) {
     <div>
       {meeting.type.split('.')[1]}
       {!!meeting.days
-        && ` on ${
-          meeting.days?.map((d: string) => d.split('.')[1]).join(', ')}`}
+        && ` on ${meeting.days?.map((d: string) => d.split('.')[1]).join(', ')}`}
       {' '}
       {!!(meeting.start_time !== 'None' && meeting.end_time !== 'None')
         && `at ${meeting.start_time}-${meeting.end_time}`}
