@@ -16,7 +16,7 @@ class Course(db.Model):
     name = db.Column(db.VARCHAR(length=255))
     faculty_id = db.Column(UUID(as_uuid=True), db.ForeignKey('faculty.id'))
     course_code = db.Column(db.VARCHAR(length=255))
-    credits = db.Column(db.Numeric(precision=4,scale=2))
+    credits = db.Column(db.Numeric(precision=4, scale=2))
     level = db.Column(db.Enum(CourseLevel))
 
     def __init__(self, name, faculty_id, course_code, credits, level):

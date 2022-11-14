@@ -1,5 +1,6 @@
 from ..base import db
-from sqlalchemy.dialects.postgresql import UUID,ARRAY
+from sqlalchemy.dialects.postgresql import UUID, ARRAY
+import random
 import uuid
 import enum
 from ..utils.uuid_from_string import uuid_from_str
@@ -38,8 +39,9 @@ class Meeting(db.Model):
     building = db.Column(db.VARCHAR(length=255))
     room = db.Column(db.VARCHAR(length=255))
 
-    def __init__(self, section_id, type, date, days, start_time, end_time, building, room, index = None):
-        self.id = uuid.UUID(int=rd.getrandbits(128)) if index == None else uuid_from_str(f'{section_id}{str(index)}')
+    def __init__(self, section_id, type, date, days, start_time, end_time, building, room, index=None):
+        rd = random.Random()
+        self.id = uuid.UUID(int=rd.getrandbits(128)) if index is None else uuid_from_str(f'{section_id}{str(index)}')
         self.course_section_id = section_id
         self.type = type
         self.date = date
@@ -51,11 +53,11 @@ class Meeting(db.Model):
 
     def toClientJson(self):
         return {
-            'type' : str(self.type),
-            'days' : [str(d) for d in self.days] if self.days else None,
-            'start_time' : str(self.start_time),
-            'end_time' :  str(self.end_time),
-            'date' : str(self.date),
-            'building' : self.building,
-            'room' : self.room
+            'type': str(self.type),
+            'days': [str(d) for d in self.days] if self.days else None,
+            'start_time': str(self.start_time),
+            'end_time':  str(self.end_time),
+            'date': str(self.date),
+            'building': self.building,
+            'room': self.room
         }

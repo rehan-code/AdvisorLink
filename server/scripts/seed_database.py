@@ -9,7 +9,7 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 def rel_path(path):
     return os.path.join(script_directory, path)
 sys.path.insert(0, rel_path('..'))
-from db import db,models
+from db import db, models
 
 # Converts a string to CONSTANT_CASE.
 def constant_case(string):
@@ -81,7 +81,7 @@ with app.app_context():
             sections.append(section)
 
             # Create the meeting entities.
-            for index,meetingJson in enumerate(sectionJson['meetings']):
+            for index, meetingJson in enumerate(sectionJson['meetings']):
                 if meetingJson['type'] != 'None':
                     meeting = models.Meeting(
                         section.id,

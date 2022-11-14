@@ -1,7 +1,7 @@
 from app import app, searchUtil
 from flask import request
 import json
-from db import db,models
+from db import db, models
 import re
 
 # Example
@@ -41,7 +41,7 @@ def getSectionsSearchQuery(queryString=None, queryType=None):
     return query
 
 # Get all the sections
-@app.route('/api/sections', methods = ['GET'])
+@app.route('/api/sections', methods=['GET'])
 def getSectionsHandler():
     # Execute the constructed query.
     query = getSectionsSearchQuery(
@@ -52,7 +52,7 @@ def getSectionsHandler():
 
     # Build out the sections with meetings grouped and entities attached.
     sectionMap = {}
-    for rowSection,course,faculty,term,meeting in queryResults:
+    for rowSection, course, faculty, term, meeting in queryResults:
         if rowSection.id not in sectionMap:
             sectionMap[rowSection.id] = rowSection
             rowSection.meetings = []
@@ -63,4 +63,4 @@ def getSectionsHandler():
         section.term = term
     sections = sectionMap.values()
 
-    return json.dumps({'sections' : [s.toClientJson() for s in sections]})
+    return json.dumps({'sections': [s.toClientJson() for s in sections]})
