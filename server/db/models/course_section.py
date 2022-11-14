@@ -34,17 +34,17 @@ class CourseSection(db.Model):
 
     def toClientJson(self):
         return {
-            'id' : str(self.id),
-            'name' : self.course.name,
-            'faculty' : self.course.faculty.code,
-            'code' : self.course.course_code,
-            'number' : self.number,
-            'weight' : float(self.course.credits),
-            'level' : str(self.course.level),
+            'id': str(self.id),
+            'name': self.course.name,
+            'faculty': self.course.faculty.code,
+            'code': self.course.course_code,
+            'number': self.number,
+            'weight': float(self.course.credits),
+            'level': str(self.course.level),
             'instructor': self.instructor,
-            'term' : self.term.name,
-            'location' : self.location,
-            'capacity' : int(self.capacity),
-            'enrolled' : int(self.enrolled),
-            'meetings' : [m.toClientJson() for m in self.meetings]
+            'term': self.term.name,
+            'location': self.location,
+            'capacity': int(self.capacity),
+            'enrolled': int(self.enrolled),
+            'meetings': [m.toClientJson() for m in self.meetings]
         }
