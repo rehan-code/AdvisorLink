@@ -21,9 +21,11 @@ code {
 }
 
 .hero {
-  @apply h-screen w-screen flex justify-center items-center;
-  background: url("./static/guelph.png");
+  @apply w-screen flex justify-center items-center;
+  min-height: 100vh;
+  background: url('./static/guelph.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
 }

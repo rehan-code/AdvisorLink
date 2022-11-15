@@ -2,12 +2,16 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import Schedule from './Schedule';
 import { Multibutton } from './Multibutton';
+import { TermSelector } from './TermSelector';
 
-const queryRegex = /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference
+const queryRegex =
+  /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference
 
 export interface Section {
   id: string;
   name: string;
+  termId: string;
+  courseId: string;
   code: string;
   number: string;
   faculty: string;
@@ -26,7 +30,7 @@ export interface Section {
       end_time: string;
       room: string;
       type: string;
-    }
+    },
   ];
 }
 
@@ -37,10 +41,14 @@ export default function CalendarComponent() {
   const [query, setQuery] = useState<string | string[][]>('');
   const [queryType, setQueryType] = useState('all');
   const [courseSections, setSections] = useState<Section[]>([]);
+  const [termId, setTermId] = useState('');
 
   // Stores the schedule to use with FullCalendar
   const [scheduleSections, setScheduleSections] = useState<Section[]>(
     cookies.schedule ? cookies.schedule : [],
+  );
+  const scheduleSectionsInTerm = scheduleSections.filter(
+    (c) => c.termId === termId,
   );
 
   useEffect(() => {
@@ -75,7 +83,9 @@ export default function CalendarComponent() {
     event.preventDefault();
 
     const searchResults = await fetch(
-      `/api/sections?${new URLSearchParams(`query=${query}&queryType=${queryType}`)}`,
+      `/api/sections?${new URLSearchParams(
+        `query=${query}&queryType=${queryType}&termId=${termId}`,
+      )}`,
     );
     const { sections } = await searchResults.json();
     setSections(sections);
@@ -121,8 +131,11 @@ export default function CalendarComponent() {
                     type="text"
                     className="text-lg p-4 w-full rounded-md"
                     placeholder="Accounting"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => updateQuery(event)}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      updateQuery(event)
+                    }
                   />
+                  <TermSelector setValue={setTermId} />
                   <div className="flex justify-evenly items-center p-4">
                     <Multibutton
                       onClick={searchSections}
@@ -158,7 +171,7 @@ export default function CalendarComponent() {
           <h1 className="text-2xl font-bold pb-8">My Courses</h1>
           <div className="w-full bg-white rounded-md h-64 overflow-auto">
             <SectionTable
-              sections={scheduleSections}
+              sections={scheduleSectionsInTerm}
               onCourseSelect={removeFromSchedule}
               actionColTitle="Remove"
               actionColText="-"
@@ -167,14 +180,14 @@ export default function CalendarComponent() {
         </div>
       </div>
       <div className="m-20 p-10 rounded-md bg-gray-300">
-        <Schedule events={scheduleSections} />
+        <Schedule events={scheduleSectionsInTerm} />
       </div>
     </div>
   );
 }
 
 interface TableSectionRowProps {
-  sections: Section[],
+  sections: Section[];
   selectedSections?: Section[];
   onCourseSelect: Function;
   actionColTitle: string;
@@ -209,6 +222,7 @@ function SectionTable(props: TableSectionRowProps) {
             addToSchedule={onCourseSelect}
             selectedSections={selectedSections}
             buttonText={actionColText}
+            key={section.id}
           />
         ))}
       </tbody>
@@ -217,9 +231,7 @@ function SectionTable(props: TableSectionRowProps) {
 }
 
 function TableSectionRow(props: any) {
-  const {
-    section, index, addToSchedule, selectedSections, buttonText,
-  } = props;
+  const { section, index, addToSchedule, selectedSections, buttonText } = props;
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -258,7 +270,9 @@ function TableSectionRow(props: any) {
         <tr className="text-center" id={`${index}-times`}>
           <td colSpan={5}>
             {section.meetings.find((m: any) => m.days)
-              ? section.meetings.map((m: any) => <MeetingRow meeting={m} />)
+              ? section.meetings.map((m: any) => (
+                  <MeetingRow meeting={m} key={m.id} />
+                ))
               : 'No Meetings'}
           </td>
         </tr>
@@ -271,18 +285,20 @@ function MeetingRow(props: any) {
   const { meeting } = props;
 
   if (
-    !meeting.days
-    && !(meeting.start_time !== 'None' && meeting.end_time !== 'None')
-  ) return null;
+    !meeting.days &&
+    !(meeting.start_time !== 'None' && meeting.end_time !== 'None')
+  )
+    return null;
 
   return (
     <div>
       {meeting.type.split('.')[1]}
-      {!!meeting.days
-        && ` on ${meeting.days?.map((d: string) => d.split('.')[1]).join(', ')}`}
-      {' '}
-      {!!(meeting.start_time !== 'None' && meeting.end_time !== 'None')
-        && `at ${meeting.start_time}-${meeting.end_time}`}
+      {!!meeting.days &&
+        ` on ${meeting.days
+          ?.map((d: string) => d.split('.')[1])
+          .join(', ')}`}{' '}
+      {!!(meeting.start_time !== 'None' && meeting.end_time !== 'None') &&
+        `at ${meeting.start_time}-${meeting.end_time}`}
     </div>
   );
 }

@@ -16,3 +16,11 @@ class Term(db.Model):
         self.name = name
         self.start_date = start_date
         self.end_date = end_date
+
+    def toClientJson(self):
+        return {
+            'id': str(self.id),
+            'name': self.name,
+            'start_date': str(self.start_date),
+            'end_date': str(self.end_date)
+        }

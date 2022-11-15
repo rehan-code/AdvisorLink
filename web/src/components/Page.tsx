@@ -2,14 +2,14 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 interface PageProps {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
-function Page({ children }:PageProps) {
+function Page({ children }: PageProps) {
   return (
     <main>
       <Navbar />
-      {children}
+      <div className="hero">{children}</div>
       <Footer />
     </main>
   );
