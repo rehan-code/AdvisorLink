@@ -17,7 +17,7 @@ SECTIONS_SEARCH_QUERY_TYPES = {
     'instructor': ['course_section', 'instructor', True]
 }
 
-def getSectionsSearchQuery(queryString=None, queryType=None):
+def getSectionsSearchQuery(queryString=None, queryType=None, termId=None):
     # Query for the databases with appropriate joins/selects.
     query = models.CourseSection.query \
         .select_from(models.CourseSection).join(models.Course) \
@@ -38,6 +38,10 @@ def getSectionsSearchQuery(queryString=None, queryType=None):
             orderBy.insert(0, db.text(f"SIMILARITY({queryTable}.{queryColumn}, '{tsqueryArgs}') DESC"))
         query = query.order_by(*orderBy)
 
+    # If a term id was providede in the request, add the condition to the query.
+    if termId:
+        query = query.where(db.text(f"course_section.term_id = '{termId}'"))
+
     return query
 
 # Get all the sections
@@ -47,6 +51,7 @@ def getSectionsHandler():
     query = getSectionsSearchQuery(
         request.args.get('query') if 'query' in request.args else None,
         request.args.get('queryType') if 'queryType' in request.args else None,
+        request.args.get('termId') if 'termId' in request.args else None
     )
     queryResults = query.all()
 
@@ -64,3 +69,8 @@ def getSectionsHandler():
     sections = sectionMap.values()
 
     return json.dumps({'sections': [s.toClientJson() for s in sections]})
+
+@app.route('/api/terms', methods=['GET'])
+def getTermsHandler():
+    terms = models.Term.query.all()
+    return json.dumps({'terms': [term.toClientJson() for term in terms]})

@@ -22,7 +22,7 @@ class CourseSection(db.Model):
     location = db.Column(db.VARCHAR(length=255))
 
     def __init__(self, number, course_id, term_id, location, instructor, capacity, enrolled, status):
-        self.id = uuid_from_str(f'{course_id}{number}')
+        self.id = uuid_from_str(f'{term_id}{course_id}{number}')
         self.number = number
         self.course_id = course_id
         self.term_id = term_id
@@ -46,5 +46,7 @@ class CourseSection(db.Model):
             'location': self.location,
             'capacity': int(self.capacity),
             'enrolled': int(self.enrolled),
-            'meetings': [m.toClientJson() for m in self.meetings]
+            'meetings': [m.toClientJson() for m in self.meetings],
+            'courseId': str(self.course_id),
+            'termId': str(self.term_id)
         }

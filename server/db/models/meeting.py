@@ -53,6 +53,7 @@ class Meeting(db.Model):
 
     def toClientJson(self):
         return {
+            'id': str(self.id),
             'type': str(self.type),
             'days': [str(d) for d in self.days] if self.days else None,
             'start_time': str(self.start_time),
