@@ -2,6 +2,7 @@ stages:
   - lint
   - test
   - deploy
+  - sanity-test
 
 include:
   - 'prototyping/pipeline.yml'
@@ -56,9 +57,23 @@ deploy-server:
     - ssh-keyscan advisorlink.ml >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh team106@advisorlink.ml "cd git/f22_cis3760_team106online && git checkout $CI_COMMIT_BRANCH && git reset --hard origin/$CI_COMMIT_BRANCH && sudo make production"
+    - ssh team106@advisorlink.ml "cd git/f22_cis3760_team106online && git fetch && git checkout $CI_COMMIT_BRANCH && git reset --hard origin/$CI_COMMIT_BRANCH && sudo make production"
   rules:
-    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
-      when: manual
-      allow_failure: true
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+restart-database:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan advisorlink.ml >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh team106@advisorlink.ml "cd git/f22_cis3760_team106online && sudo make db"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: manual

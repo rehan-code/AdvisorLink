@@ -1,6 +1,7 @@
 test-html-parser:
   stage: test
   image: python:3.10
+  when: manual
   before_script:
     - cd prototyping
     - python --version && pip install .
@@ -10,6 +11,7 @@ test-html-parser:
 test-search-cli:
   stage: test
   image: python:3.10
+  when: manual
   before_script:
     - cd prototyping
     - python --version && pip install .
