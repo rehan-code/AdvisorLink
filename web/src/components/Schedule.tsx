@@ -38,7 +38,8 @@ function createCalendarEvents(sections: Section[]) {
       .forEach((meeting) => {
         events.push({
           // FIX THIS - meeting type in 'MeetingType.TYPE' format
-          title: `${section.faculty}*${section.code}*${section.number
+          title: `${section.faculty}*${section.code}*${
+            section.number
           }\n${meeting.type.substring(12)}`,
           daysOfWeek: getDaysOfWeekInteger(meeting.days),
           startTime: meeting.start_time,
@@ -54,7 +55,10 @@ function createCalendarEvents(sections: Section[]) {
 const handleExport = async () => {
   const htmlElement: HTMLElement = document.getElementById('sc') as HTMLElement;
   // eslint-disable-next-line new-cap
-  const report = new jsPDF('landscape', 'mm', [htmlElement.scrollWidth + 1, htmlElement.scrollHeight + 1]);
+  const report = new jsPDF('landscape', 'mm', [
+    htmlElement.scrollWidth + 1,
+    htmlElement.scrollHeight + 1,
+  ]);
   report.html(htmlElement).then(() => {
     report.save('schedule.pdf');
   });
@@ -77,7 +81,7 @@ export default function Schedule(props: any) {
           }}
           initialView="timeGridWeek"
           weekends
-          eventDidMount={function (info) { }}
+          eventDidMount={function (info) {}}
           events={createCalendarEvents(props.events)}
           slotMinTime="07:00:00"
           slotMaxTime="23:00:00"

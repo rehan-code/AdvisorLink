@@ -20,10 +20,6 @@ export default function Footer() {
           <h1>Parker Carnegie</h1>
           <h1>Caleb Beere</h1>
         </div>
-        <div className="boder-solid border-l-2 border-white h-24" />
-        <div className="text-center">
-          <h1>Sitemap</h1>
-        </div>
       </div>
     </div>
   );
