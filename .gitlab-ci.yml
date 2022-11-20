@@ -4,9 +4,6 @@ stages:
   - deploy
   - sanity-test
 
-include:
-  - 'prototyping/pipeline.yml'
-
 lint-flask:
   stage: lint
   image: python:3.10
@@ -64,6 +61,7 @@ deploy-server:
 restart-database:
   stage: deploy
   image: alpine:latest
+  when: manual
   before_script:
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
     - eval $(ssh-agent -s)
@@ -76,4 +74,3 @@ restart-database:
     - ssh team106@advisorlink.ml "cd git/f22_cis3760_team106online && sudo make db"
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-      when: manual
