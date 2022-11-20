@@ -50,14 +50,14 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
 
 ## To run front-end Selenium tests
 
-## Usage
+### Usage
 
 - Go to the `/server/tests/selenium` folder
 - run:
 
           `$ python3 test_frontend.py`
 
-## Tests
+### Tests
 
 - Navigationg to Calendar Page
 - Adding/Removing Fall 2022 Sections
