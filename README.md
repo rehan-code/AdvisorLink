@@ -47,3 +47,24 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
         - Results of the search will show up in the My Courses section of the page, which will show as a list of courses
         - When the user selects a course, the course will be automatically added to the calendar below the search bar
         - If there is a conflict, the user will be notified with a message above the calendar with the courses that are conflicting
+
+## To run front-end Selenium tests
+
+## Usage
+
+- Go to the `/server/tests/selenium` folder
+- run:
+
+          `$ python3 test_frontend.py`
+
+## Tests
+
+- Navigationg to Calendar Page
+- Adding/Removing Fall 2022 Sections
+- Adding Winter 2023 Sections
+- Viewing Weekly/Exam Schedule
+- Exporting Calendar
+- Searching By Course Name
+- Searching By Course Code
+- Searching By Instructor
+- Navigationg to About Us Page

@@ -28,7 +28,7 @@ driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 print('Navigating to website...')
 driver.get('http://www.advisorlink.ml/')
 
-######################################## TEST 1 - ADD FALL 2022 COURSES ########################################
+######################################## TEST 1 - ADD/REMOVE FALL 2022 COURSES ########################################
 # Navigate to calendar page
 print('1.1 Navigating to calendar page...')
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div/button")

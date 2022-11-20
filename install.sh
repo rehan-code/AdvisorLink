@@ -35,3 +35,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -sudo
    stable"
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 sudo docker pull postgres
+
+# install google-chrome for selenium tests
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt --fix-broken install
+rm google-chrome-stable_current_amd64.deb
