@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Calendar from '../pages/Calendar';
 import About from '../pages/About';
+import NotFound from '../pages/NotFound';
 
 function Main() {
   return (
@@ -13,6 +14,7 @@ function Main() {
       <Route path="/" element={<Home />} />
       <Route path="/calendar" element={<Calendar />} />
       <Route path="/about" element={<About />} />
+      <Route path="*" element={<NotFound />}/>
     </Routes>
   );
 }
