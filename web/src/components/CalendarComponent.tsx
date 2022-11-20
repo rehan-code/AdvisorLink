@@ -271,8 +271,8 @@ function TableSectionRow(props: any) {
           <td colSpan={5}>
             {section.meetings.find((m: any) => m.days)
               ? section.meetings.map((m: any) => (
-                  <MeetingRow meeting={m} key={m.id} />
-                ))
+                <MeetingRow meeting={m} key={m.id} />
+              ))
               : 'No Meetings'}
           </td>
         </tr>
