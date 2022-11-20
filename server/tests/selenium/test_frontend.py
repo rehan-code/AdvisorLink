@@ -31,9 +31,9 @@ driver.get('http://www.advisorlink.ml/')
 ######################################## TEST 1 - ADD FALL 2022 COURSES ########################################
 # Navigate to calendar page
 print('1.1 Navigating to calendar page...')
-time.sleep(SLEEP_TIME)
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div/button")
 link.click()
+time.sleep(5)
 
 # Search for course 'CIS 2750'
 print('1.2 Searching: \'CIS 2750\'...')
@@ -72,6 +72,12 @@ link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[1
 link.click()
 time.sleep(SLEEP_TIME)
 
+# Remove course to schedule
+print('1.6 Deleting from schedule: \'Management Accounting\'...')
+link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div/div[3]/div/div/table/tbody/tr[2]/td[5]/button")
+link.click()
+time.sleep(SLEEP_TIME)
+
 ######################################## TEST 2 - ADD A WINTER COURSE ########################################
 # Select 'W2023' in term dropdown
 print('2.1 Switching to W2023 schedule...')
@@ -99,8 +105,14 @@ link.click()
 time.sleep(SLEEP_TIME)
 
 ######################################## TEST 3 - SWITCH TO EXAM SCHEDULE ########################################
+# Select 'F2022' in term dropdown
+print('3.1 Switching to F2022 schedule...')
+select = Select(driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/select'))
+select.select_by_visible_text('Fall 2022')
+time.sleep(5)
+
 # Search for course 'Management Accounting'
-print('3.1 Searching: \'Calculus\'...')
+print('3.2 Searching: \'Calculus\'...')
 search_box = driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/input').clear()
 search_box = driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/input')
 search_box.send_keys('Calculus')
@@ -113,35 +125,35 @@ link.click()
 time.sleep(SLEEP_TIME)
 
 # Add course to schedule
-print('3.2 Adding to schedule: \'Calculus\'...')
+print('3.3 Adding to schedule: \'Calculus\'...')
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[1]/div[2]/div/div/table/tbody/tr[1]/td[5]/button")
 link.click()
 time.sleep(SLEEP_TIME)
 
 # Switch to exam schedule
-print('3.3 Switching to exam schedule...')
-link2 = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[2]/button[1]")
+print('3.4 Switching to exam schedule...')
+link2 = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div/div[4]/div/div[2]/button[1]')
 link2.click()
-time.sleep(SLEEP_TIME)
+time.sleep(SLEEP_TIME*2)
 
 # Switch back to Weekly schedule
-print('3.4 Switching to weekly schedule...')
-link2 = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[2]/button[1]")
+print('3.5 Switching to weekly schedule...')
+link2 = driver.find_element(By.XPATH,'/html/body/div/div/main/div[2]/div/div/div[4]/div/div[2]/button[1]')
 link2.click()
-time.sleep(SLEEP_TIME)
+time.sleep(SLEEP_TIME*2)
 
 ######################################## TEST 4 - EXPORT FUNCTIONALITY ########################################
 # Scroll to visual calendar
-print('4.1 Scrolling to visual calendar...')
-element = driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[1]/div') 
-driver.execute_script("arguments[0].scrollIntoView(true);", element)
-time.sleep(SLEEP_TIME*2)
+# print('4.1 Scrolling to visual calendar...')
+# element = driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[2]/button[2]') 
+# driver.execute_script("arguments[0].scrollIntoView(true);", element)
+# time.sleep(SLEEP_TIME*2)
 
 # Export calendar
-print('4.2 Exporting calendar...')
-link2 = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[2]/button[2]")
+print('4. Exporting calendar...')
+link2 = driver.find_element(By.XPATH,"/html/body/div/div/main/div[2]/div/div/div[4]/div/div[2]/button[2]")
 link2.click()
-time.sleep(SLEEP_TIME)
+time.sleep(5)
 
 ######################################## TEST 5 - SEARCH BY COURSE NAME ########################################
 # Select 'Search by Course Name' in search query dropdown
@@ -150,11 +162,11 @@ select = Select(driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/
 select.select_by_visible_text('Search by Course Name')
 time.sleep(5)
 
-# Search for course 'Water Management'
-print('5.2 Searching: \'Water Management\'...')
+# Search for course 'Soil Management'
+print('5.2 Searching: \'Soil Management\'...')
 search_box = driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/input').clear()
 search_box = driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/input')
-search_box.send_keys('Water Management')
+search_box.send_keys('Soil Management')
 time.sleep(SLEEP_TIME) 
 
 # Press search
@@ -164,14 +176,14 @@ link.click()
 time.sleep(SLEEP_TIME)
 
 # Add course to schedule
-print('5.3 Adding to schedule: \'Water Management\'...')
+print('5.3 Adding to schedule: \'Soil Management\'...')
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[1]/div[2]/div/div/table/tbody/tr[1]/td[5]/button")
 link.click()
 time.sleep(SLEEP_TIME)
 
 # Scroll to visual calendar
 print('5.4 Scrolling to visual calendar...')
-element = driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[1]/div') 
+element = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div/div[4]/div/div[1]/h1') 
 driver.execute_script("arguments[0].scrollIntoView(true);", element)
 time.sleep(SLEEP_TIME*2)
 
@@ -203,7 +215,7 @@ time.sleep(SLEEP_TIME)
 
 # Scroll to visual calendar
 print('6.4 Scrolling to visual calendar...')
-element = driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[1]/div') 
+element = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div/div[4]/div/div[1]/h1') 
 driver.execute_script("arguments[0].scrollIntoView(true);", element)
 time.sleep(SLEEP_TIME*2)
 
@@ -233,9 +245,16 @@ time.sleep(5)
 
 # Scroll to visual calendar
 # print('3.1 Scrolling to visual calendar...')
-# element = driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[3]/div/div[1]/div') 
+# element = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div/div[4]/div/div[1]/h1') 
 # driver.execute_script("arguments[0].scrollIntoView(true);", element)
 # time.sleep(SLEEP_TIME)
+
+######################################## TEST 7 - ABOUT US ########################################
+# Navigate to calendar page
+print('7. Navigating to "About Us" page...')
+link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[1]/div/div/div[2]/a")
+link.click()
+time.sleep(SLEEP_TIME*2)
 
 print('\nAll tests completed.')
 driver.quit()
