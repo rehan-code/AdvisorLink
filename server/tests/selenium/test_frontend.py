@@ -1,21 +1,36 @@
-from selenium import webdriver
 import time
+
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
-driver = webdriver.Chrome('/path/to/chromedriver')  # Optional argument, if not specified will search path.
-driver.get('http://www.advisorlink.ml/');
+# Setup chrome options
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+
+# Set path to chromedriver
+chrome_path = './chromedriver'
+chrome_service = Service(chrome_path)
+
+# Choose Chrome Browser
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
+driver.get('http://www.advisorlink.ml/')
+
 time.sleep(5) # Let the user actually see something!
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div/button");
-link.click();
+link.click()
 # search for courses
 search_box = driver.find_element(By.XPATH,'/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/input')
 search_box.send_keys('CIS 2750')
 time.sleep(5) # show the tester the input 
 search_box.send_keys(Keys.RETURN)
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/div/button")
-link.click();
+link.click()
 time.sleep(5) # Let the user actually see something!
 # add the course to the schedule
 link = driver.find_element(By.XPATH,"/html/body/div[1]/div/main/div[2]/div/div[1]/div[2]/div/div/table/tbody/tr[1]/td[5]/button")
