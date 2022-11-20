@@ -119,8 +119,8 @@ export default function CalendarComponent() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      <div className="grid grid-cols-3 gap-12 w-full px-16 py-20">
-        <div className="flex items-center justify-start w-full rounded-md px-10 py-10 bg-gray-300 col-start-1 col-end-1">
+      <div className="grid grid-cols-3 auto-rows-min gap-12 px-16 py-20 w-full">
+        <div className="flex items-center justify-start w-full rounded-md p-10 bg-gray-300 col-start-1 col-end-1">
           <div className="w-full">
             {/* COURSE SEARCHING */}
             <h1 className="text-2xl font-bold pb-8">Course Search</h1>
@@ -165,22 +165,22 @@ export default function CalendarComponent() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex items-center justify-start w-8/12 rounded-md px-10 py-10 bg-gray-300">
-        <div className="w-full">
-          <h1 className="text-2xl font-bold pb-8">My Courses</h1>
-          <div className="w-full bg-white rounded-md h-64 overflow-auto">
-            <SectionTable
-              sections={scheduleSectionsInTerm}
-              onCourseSelect={removeFromSchedule}
-              actionColTitle="Remove"
-              actionColText="-"
-            />
+        <div className="w-full col-start-1 col-end-4 row-start-2 bg-gray-300 rounded-md flex items-center justify-center p-10">
+          <div className="w-10/12">
+            <h1 className="text-2xl font-bold pb-8">My Courses</h1>
+            <div className="w-full bg-white rounded-md h-64 overflow-auto">
+              <SectionTable
+                sections={scheduleSectionsInTerm}
+                onCourseSelect={removeFromSchedule}
+                actionColTitle="Remove"
+                actionColText="-"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="m-20 p-10 rounded-md bg-gray-300">
+        <div className="rounded-md bg-gray-300 row-start-3 col-start-1 col-end-4 p-10">
         <Schedule events={scheduleSectionsInTerm} />
+      </div>
       </div>
     </div>
   );
@@ -271,8 +271,8 @@ function TableSectionRow(props: any) {
           <td colSpan={5}>
             {section.meetings.find((m: any) => m.days)
               ? section.meetings.map((m: any) => (
-                <MeetingRow meeting={m} key={m.id} />
-              ))
+                  <MeetingRow meeting={m} key={m.id} />
+                ))
               : 'No Meetings'}
           </td>
         </tr>
