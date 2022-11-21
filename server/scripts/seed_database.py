@@ -6,14 +6,21 @@ import json
 # Helper function to make paths relative to this script instead of the directory
 # from which it was run.
 script_directory = os.path.dirname(os.path.abspath(__file__))
+
+
 def rel_path(path):
     return os.path.join(script_directory, path)
+
+
 sys.path.insert(0, rel_path('..'))
 from db import db, models
 
 # Converts a string to CONSTANT_CASE.
+
+
 def constant_case(string):
     return string.strip().upper().replace(' ', '_')
+
 
 # Create a dummy app to communicate with the database.
 app = Flask(__name__)

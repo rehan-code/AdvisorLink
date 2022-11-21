@@ -4,9 +4,11 @@ import uuid
 import enum
 from ..utils.uuid_from_string import uuid_from_str
 
+
 class CourseSectionStatus(enum.Enum):
     OPEN = 'OPEN'
     CLOSED = 'CLOSED'
+
 
 class CourseSection(db.Model):
     __tablename__ = 'course_section'

@@ -4,10 +4,12 @@ import uuid
 import enum
 from ..utils.uuid_from_string import uuid_from_str
 
+
 class CourseLevel(enum.Enum):
     UNDERGRADUATE = 'UNDERGRADUATE'
     GRADUATE = 'GRADUATE'
     DIPLOMA = 'DIPLOMA'
+
 
 class Course(db.Model):
     __tablename__ = 'course'
