@@ -6,23 +6,23 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 SLEEP_TIME = 3
 
 # Setup chrome options
 print('Setting up chromedriver options...')
 chrome_options = Options()
-# chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
 
 # Set path to chromedriver
 print('Setting path to chromedriver...')
-chrome_path = './chromedriver'
-chrome_service = Service(chrome_path)
 
 # Choose Chrome Browser
 print('Choosing Chrome browser...')
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 # Navigate to website
 print('Navigating to website...')
