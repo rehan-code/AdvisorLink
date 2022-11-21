@@ -42,11 +42,32 @@ This is a prototype web server run using Flask, NGINX, React, Tailwind CSS, Type
 ### To Create a Course Schedule
 
 On the home page, select the Schedule Courses button to begin creating a schedule.
-        - First, use the drop down menu to choose between selecting F22 and W23 courses.
-        - Using the search bar, the user can search for courses by name, course code and professor. Use the Search drop down menu to choose the desired criteria.
-        - Results of the search will show up in the My Courses section of the page, which will show as a list of courses. The user can click on a course to see its lecture, lab and exam times.
-        - Add a course using the + button on the desired section. When the user selects a course, it will be automatically added to the calendar below the search bar.
-        - To remove a course, click the - button beside the course on the My Courses section.
-        - If there is a conflict, the conflicted section will be coloured red.
-        - To switch to the exam schedule, press the Switch to Exam Schedule button below the calendar.
-        - To export the file, click the Export file below the calendar.
+  - First, use the drop down menu to choose between selecting F22 and W23 courses.
+  - Using the search bar, the user can search for courses by name, course code and professor. Use the Search drop down menu to choose the desired criteria.
+  - Results of the search will show up in the My Courses section of the page, which will show as a list of courses. The user can click on a course to see its lecture, lab and exam times.
+  - Add a course using the + button on the desired section. When the user selects a course, it will be automatically added to the calendar below the search bar.
+  - To remove a course, click the - button beside the course on the My Courses section.
+  - If there is a conflict, the conflicted section will be coloured red.
+  - To switch to the exam schedule, press the Switch to Exam Schedule button below the calendar.
+  - To export the file, click the Export file below the calendar.
+
+## To run front-end Selenium tests
+
+### Usage
+
+- Go to the `/server/tests/selenium` folder
+- run:
+
+          `$ python3 test_frontend.py`
+
+### Tests
+
+- Navigationg to Calendar Page
+- Adding/Removing Fall 2022 Sections
+- Adding Winter 2023 Sections
+- Viewing Weekly/Exam Schedule
+- Exporting Calendar
+- Searching By Course Name
+- Searching By Course Code
+- Searching By Instructor
+- Navigationg to About Us Page
