@@ -77,3 +77,35 @@ restart-database:
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
       when: manual
+
+test-frontend:
+  stage: sanity-test
+  image: ubuntu:latest
+  services:
+    - selenium/standalone-chrome
+  dependencies:
+    - deploy-server
+  before_script:
+    - cd server/
+    # Update apt-get and install pip
+    - apt-get update
+    - apt-get install -y python3-pip libpq-dev python3-dev
+    - pip3 install -r requirements.txt
+    # Install chrome
+    - cd tests/selenium
+    - apt-get install -y xvfb zip wget ca-certificates
+    - apt-get install -y libnss3-dev libasound2 libxss1 libappindicator3-1 libindicator7 gconf-service libgconf-2-4 libpango1.0-0 xdg-utils fonts-liberation libgbm1 libcurl4
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 
+    - apt install -y ./google-chrome-stable_current_amd64.deb
+    - rm google-chrome*.deb
+    # Install chromedriver
+    - wget -N http://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip
+    - unzip -o chromedriver_linux64.zip
+    - chmod +x chromedriver
+    - cp chromedriver /usr/local/bin
+    - rm chromedriver_linux64.zip
+    - rm chromedriver
+  script:
+    - python3 test_frontend.py
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
