@@ -6,6 +6,8 @@ from .section import Section
 from .meeting import Meeting
 
 # A class to parse the course JSON file
+
+
 class CourseJsonParser():
     def __init__(self):
         pass

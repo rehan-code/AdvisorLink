@@ -5,9 +5,12 @@ from db import db, models
 import re
 
 # Example
+
+
 @app.route('/api')
 def ding():
     return json.dumps({'message': 'Ding!'})
+
 
 SECTIONS_SEARCH_QUERY_TYPES = {
     # format: <input>: [<table>, <column>, <sort by SIMILARITY>]
@@ -16,6 +19,7 @@ SECTIONS_SEARCH_QUERY_TYPES = {
     'code': ['course_section', 'search_course_code', True],
     'instructor': ['course_section', 'instructor', True]
 }
+
 
 def getSectionsSearchQuery(queryString=None, queryType=None, termId=None):
     # Query for the databases with appropriate joins/selects.
@@ -45,6 +49,8 @@ def getSectionsSearchQuery(queryString=None, queryType=None, termId=None):
     return query
 
 # Get all the sections
+
+
 @app.route('/api/sections', methods=['GET'])
 def getSectionsHandler():
     # Execute the constructed query.
@@ -69,6 +75,7 @@ def getSectionsHandler():
     sections = sectionMap.values()
 
     return json.dumps({'sections': [s.toClientJson() for s in sections]})
+
 
 @app.route('/api/terms', methods=['GET'])
 def getTermsHandler():

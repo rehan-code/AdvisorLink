@@ -3,6 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from ..utils.uuid_from_string import uuid_from_str
 
+
 class Faculty(db.Model):
     __tablename__ = 'faculty'
 

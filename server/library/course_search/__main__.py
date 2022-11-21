@@ -11,8 +11,11 @@ else:
 # Helper function to make paths relative to this script instead of the directory
 # from which it was run.
 script_directory = os.path.dirname(os.path.abspath(__file__))
+
+
 def rel_path(path):
     return os.path.join(script_directory, path)
+
 
 def main():
     parser = CourseJsonParser()
@@ -79,6 +82,7 @@ def main():
 
         except ArgumentError:
             print('Argument error caught')
+
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,5 @@
 class Meeting():
-     # Creates a meeting instance with the given attributes
+    # Creates a meeting instance with the given attributes
     def __init__(self, meeting_type, days, start_time, end_time, date, building, room):
         self.type = meeting_type
         self.days = days
@@ -19,11 +19,11 @@ class Meeting():
 
     def toJson(self):
         return {
-            'type' : self.type,
-            'days' : self.days,
-            'start_time' : self.start_time,
-            'end_time' :  self.end_time,
-            'date' : self.date,
-            'building' : self.building,
-            'room' : self.room
+            'type': self.type,
+            'days': self.days,
+            'start_time': self.start_time,
+            'end_time': self.end_time,
+            'date': self.date,
+            'building': self.building,
+            'room': self.room
         }

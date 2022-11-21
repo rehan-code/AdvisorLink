@@ -5,6 +5,7 @@ import uuid
 import enum
 from ..utils.uuid_from_string import uuid_from_str
 
+
 class MeetingType(enum.Enum):
     LEC = 'LEC'
     LAB = 'LAB'
@@ -17,6 +18,7 @@ class MeetingType(enum.Enum):
     PRACTICUM = 'PRACTICUM'
     INDEPENDENT_STUDY = 'INDEPENDENT_STUDY'
 
+
 class DayOfWeek(enum.Enum):
     SUN = 'SUN'
     MON = 'MON'
@@ -25,6 +27,7 @@ class DayOfWeek(enum.Enum):
     THUR = 'THUR'
     FRI = 'FRI'
     SAT = 'SAT'
+
 
 class Meeting(db.Model):
     __tablename__ = 'meeting'
@@ -57,7 +60,7 @@ class Meeting(db.Model):
             'type': str(self.type),
             'days': [str(d) for d in self.days] if self.days else None,
             'start_time': str(self.start_time),
-            'end_time':  str(self.end_time),
+            'end_time': str(self.end_time),
             'date': str(self.date),
             'building': self.building,
             'room': self.room

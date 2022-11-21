@@ -1,6 +1,8 @@
 from enum import Enum
 
 # An enum with all the search options
+
+
 class SearchOptionEnum(str, Enum):
     CODE = 'CODE'
     FACULTY = 'FACULTY'
@@ -16,6 +18,8 @@ class SearchOptionEnum(str, Enum):
     EXAM = 'EXAM'
 
 # A Section search map class with a dictionary to store section data
+
+
 class SectionSearchMap():
     def __init__(self):
         self.search_map = {}
