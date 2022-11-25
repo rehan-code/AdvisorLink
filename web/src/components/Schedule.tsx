@@ -1,12 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable func-names */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useState } from 'react';
-import FullCalendar, { EventSourceInput } from '@fullcalendar/react';
+import React, { useState, createRef, useEffect } from 'react';
+import FullCalendar from '@fullcalendar/react';
+import { Calendar } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import jsPDF from 'jspdf';
 import { Section } from './CalendarComponent';
 
@@ -21,16 +24,28 @@ const colors = {
   BORDER: '#171717'
 }
 
-interface Event {
+interface Events {
+  week: WeeklyEvent[];
+  exam: ExamEvent[];
+}
+
+interface WeeklyEvent {
   title: string;
+  allDay: boolean;
   daysOfWeek: number[];
   startTime: string;
   endTime: string;
   color: string;
   borderColor: string;
-  extendedProps: {
-    eventType: string;
-  };
+}
+
+interface ExamEvent {
+  title: string;
+  allDay: boolean;
+  start: string;
+  end: string;
+  color: string;
+  borderColor: string;
 }
 
 function getDaysOfWeekInteger(days: string[]) {
@@ -44,36 +59,41 @@ function getDaysOfWeekInteger(days: string[]) {
 }
 
 function createCalendarEvents(sections: Section[]) {
-  const events: Event[] = [];
+  const events: Events = { week: [], exam: [] };
   sections.forEach((section) => {
     section.meetings
       .filter((m) => m.start_time && m.end_time && m.days)
       .forEach((meeting) => {
         const meetingDays = getDaysOfWeekInteger(meeting.days);
-        const backgroundColor = checkConflict(events, meeting.start_time, meeting.end_time, meetingDays) ? colors.ERROR : getColor(meeting.type.substring(12));
-        events.push({
-          // FIX THIS - meeting type in 'MeetingType.TYPE' format
-          title: `${section.faculty}*${section.code}*${section.number
-            }\n${meeting.type.substring(12)}`,
-          daysOfWeek: meetingDays,
-          startTime: meeting.start_time,
-          endTime: meeting.end_time,
-          color: meeting.type.substring(12) === 'EXAM' ? colors.EXAM : backgroundColor,
-          borderColor: colors.BORDER,
-          extendedProps: {
-            eventType: meeting.type.substring(12),
-          },
-        });
+        if (meeting.type.substring(12) !== "EXAM")
+          events.week.push({
+            title: `${section.faculty}*${section.code}*${section.number
+              }\n${meeting.type.substring(12)}`,
+            allDay: false,
+            daysOfWeek: meetingDays,
+            startTime: meeting.start_time,
+            endTime: meeting.end_time,
+            color: checkConflict(events.week, meeting.start_time, meeting.end_time, meetingDays) ? colors.ERROR : getColor(meeting.type.substring(12)),
+            borderColor: colors.BORDER
+          })
+        else
+          events.exam.push({
+            title: `${section.faculty}*${section.code}*\n${meeting.type.substring(12)}`,
+            allDay: false,
+            start: `${meeting.date}T${meeting.start_time}`,
+            end: `${meeting.date}T${meeting.end_time}`,
+            color: colors.EXAM,
+            borderColor: colors.EXAM
+          })
       });
   });
   return events;
 }
 
-function checkConflict(events: Event[], startTime: string, endTime: string, meetingDays: number[]) {
+function checkConflict(events: WeeklyEvent[], startTime: string, endTime: string, meetingDays: number[]) {
   return events.filter((event) => (
     (event.startTime <= endTime && event.endTime >= startTime)
     && event.daysOfWeek.filter(x => meetingDays.indexOf(x) !== -1).length > 0
-    && event.extendedProps.eventType !== 'EXAM'
   )).length > 0;
 }
 
@@ -104,35 +124,72 @@ const handleExport = async () => {
   });
 };
 
+function getMinDate(events: ExamEvent[]) {
+  return (events.length > 1 ? events.reduce((a, b) => (a.start < b.start ? a : b)) : events[0]).start;
+}
+
+
 export default function Schedule(props: any) {
   const [scheduleType, setScheduleType] = useState<string>('Weekly');
   const events = createCalendarEvents(props.events);
-  const weeklyEvents = events.filter((event) => (event.extendedProps.eventType !== 'EXAM'));
-  const examEvents = events.filter((event) => (event.extendedProps.eventType === 'EXAM'));
+  const weekScheduleRef = createRef<FullCalendar>();
+  const examScheduleRef = createRef<FullCalendar>();
+
+  // Set View to the first exam week
+  useEffect(() => {
+    if (events.exam.length > 0) {
+      const examCalendarApi = examScheduleRef.current?.getApi();
+      examCalendarApi?.gotoDate(getMinDate(events.exam));
+    }
+  }, [events]);
+
   return (
-    <div className="bg-white">
+    <div className="bg-white p-5">
       <div id="sc">
-        <h1 className="text-2xl font-bold pb-8">{scheduleType === 'Weekly' ? 'Weekly' : 'Exam'} Schedule</h1>
-        <FullCalendar
-          plugins={[timeGridPlugin]}
-          headerToolbar={{
-            left: '',
-            center: '',
-            right: '',
-          }}
-          dayHeaderFormat={{
-            weekday: 'short',
-          }}
-          initialView="timeGridWeek"
-          weekends
-          eventDidMount={function (info) { }}
-          events={scheduleType === 'Weekly' ? weeklyEvents : examEvents}
-          slotMinTime="07:00:00"
-          slotMaxTime="23:00:00"
-          allDaySlot={false}
-          contentHeight="auto"
-          slotEventOverlap={false}
-        />
+        <div className={scheduleType === 'Weekly' ? 'block' : 'hidden'}>
+          <div>
+            <h1 className="text-2xl font-bold pb-8">Weekly Schedule</h1>
+            <FullCalendar ref={weekScheduleRef}
+              plugins={[timeGridPlugin]}
+              headerToolbar={{
+                left: '',
+                center: '',
+                right: '',
+              }}
+              dayHeaderFormat={{
+                weekday: 'short',
+              }}
+              initialView="timeGridWeek"
+              weekends
+              events={events.week}
+              slotMinTime="07:00:00"
+              slotMaxTime="23:00:00"
+              allDaySlot={false}
+              contentHeight="auto"
+              slotEventOverlap={false}
+            />
+          </div>
+        </div>
+        <div className={scheduleType === 'Weekly' ? 'hidden' : 'block'}>
+          <h1 className='text-2xl font-bold pb-8'>Exam Schedule</h1>
+          <FullCalendar ref={examScheduleRef}
+            plugins={[dayGridPlugin, timeGridPlugin]}
+            headerToolbar={{
+              left: 'prev',
+              center: 'title',
+              right: 'dayGridMonth timeGridWeek next',
+            }}
+            initialView="dayGridMonth"
+            events={events.exam}
+            eventDisplay='block'
+            displayEventEnd={true}
+            weekends
+            slotMinTime="07:00:00"
+            slotMaxTime="23:00:00"
+            contentHeight="auto"
+            slotEventOverlap={false}
+          />
+        </div>
       </div>
       <div className="flex justify-evenly items-center p-4">
         <button
