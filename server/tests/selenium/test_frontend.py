@@ -17,20 +17,15 @@ LONG_SLEEP_TIME = 5
 print('Setting up chromedriver options...')
 chrome_options = Options()
 
-if ( len(sys.argv) > 1  ):
-
-    if ( sys.argv[1] == '--headless' ):
-        print('DEBUG: Running in gui-less mode...')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-gpu")
-
-
+if ( len(sys.argv) > 1 and sys.argv[1] == '--headless' ):
+    print('DEBUG: Running in gui-less mode...')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
 
 else:
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument("--disable-gpu")
-
 
 # Set path to chromedriver
 print('Setting path to chromedriver...')
