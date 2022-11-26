@@ -1,4 +1,5 @@
 import time
+import sys
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -6,16 +7,30 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+
 from webdriver_manager.chrome import ChromeDriverManager
 
 SLEEP_TIME = 3
+LONG_SLEEP_TIME = 5
 
 # Setup chrome options
 print('Setting up chromedriver options...')
 chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
+
+if ( len(sys.argv) > 1  ):
+
+    if ( sys.argv[1] == '--headless' ):
+        print('DEBUG: Running in gui-less mode...')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+
+
+
+else:
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument("--disable-gpu")
+
 
 # Set path to chromedriver
 print('Setting path to chromedriver...')
@@ -28,12 +43,13 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 print('Navigating to website...')
 driver.get('http://www.advisorlink.ml/')
 
+
 # TEST 1 - ADD/REMOVE FALL 2022 COURSES
 # Navigate to calendar page
 print('1.1 Navigating to calendar page...')
 link = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div/div/button")
 link.click()
-time.sleep(5)
+time.sleep(LONG_SLEEP_TIME)
 
 # Search for course 'CIS 2750'
 print('1.2 Searching: \'CIS 2750\'...')
@@ -83,7 +99,7 @@ time.sleep(SLEEP_TIME)
 print('2.1 Switching to W2023 schedule...')
 select = Select(driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/select'))
 select.select_by_visible_text('Winter 2023')
-time.sleep(5)
+time.sleep(LONG_SLEEP_TIME)
 
 # Search for course 'Management Accounting'
 print('2.2 Searching: \'Management Accounting\'...')
@@ -109,7 +125,7 @@ time.sleep(SLEEP_TIME)
 print('3.1 Switching to F2022 schedule...')
 select = Select(driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/select'))
 select.select_by_visible_text('Fall 2022')
-time.sleep(5)
+time.sleep(LONG_SLEEP_TIME)
 
 # Search for course 'Management Accounting'
 print('3.2 Searching: \'Calculus\'...')
@@ -153,7 +169,7 @@ time.sleep(SLEEP_TIME * 2)
 print('4. Exporting calendar...')
 link2 = driver.find_element(By.XPATH, "/html/body/div/div/main/div[2]/div/div/div[4]/div/div[2]/button[2]")
 link2.click()
-time.sleep(5)
+time.sleep(LONG_SLEEP_TIME)
 
 # TEST 5 - SEARCH BY COURSE NAME
 # Select 'Search by Course Name' in search query dropdown
@@ -176,7 +192,7 @@ link.click()
 time.sleep(SLEEP_TIME)
 
 # Add course to schedule
-print('5.3 Adding to schedule: \'Soil Management\'...')
+print('5.3 Adding to schedule: \'Soil Management\'...') ##
 link = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div/div[1]/div[2]/div/div/table/tbody/tr[1]/td[5]/button")
 link.click()
 time.sleep(SLEEP_TIME)
@@ -192,7 +208,7 @@ time.sleep(SLEEP_TIME * 2)
 print('6.1 Switching to \'Search by Course Code\'...')
 select = Select(driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/div/select'))
 select.select_by_visible_text('Search by Course Code')
-time.sleep(5)
+time.sleep(LONG_SLEEP_TIME)
 
 # Search for course 'ARTH 3210'
 print('6.2 Searching: \'3210\'...')
@@ -223,7 +239,7 @@ time.sleep(SLEEP_TIME * 2)
 # choose Search by Instructor in the dropdown
 select = Select(driver.find_element(By.XPATH, '/html/body/div[1]/div/main/div[2]/div/div[1]/div[1]/div/div/div/form/div/select'))
 select.select_by_visible_text('Search by Instructor')
-time.sleep(5)
+time.sleep(LONG_SLEEP_TIME)
 
 # Search for course by instructor 'CIS 2500'
 # print('2.2 Searching: \'CIS 2500\'...')
@@ -254,7 +270,7 @@ time.sleep(5)
 print('7. Navigating to "About Us" page...')
 link = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[1]/div/div/div[2]/a")
 link.click()
-time.sleep(SLEEP_TIME * 2)
+time.sleep(LONG_SLEEP_TIME + 1)
 
 print('\nAll tests completed.')
 driver.quit()
