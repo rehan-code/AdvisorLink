@@ -247,7 +247,7 @@ function TableSectionRow(props: any) {
   return (
     <>
       <tr
-        className="text-center"
+        className="text-center cursor-pointer hover:bg-blue-200"
         id={String(index)}
         onClick={() => setExpanded(!expanded)}
       >
