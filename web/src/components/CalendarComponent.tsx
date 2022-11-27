@@ -91,7 +91,7 @@ export default function CalendarComponent() {
     setSections(sections);
   };
 
-  // Memoize previous results
+  // Memorize previous results
   const addToSchedule = (
     event: React.MouseEvent<HTMLButtonElement>,
     index: number,

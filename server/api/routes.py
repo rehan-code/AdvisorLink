@@ -1,12 +1,11 @@
-from app import app, searchUtil
+from app import app
 from flask import request
 import json
 from db import db, models
 import re
 
-# Example
 
-
+# Test route
 @app.route('/api')
 def ding():
     return json.dumps({'message': 'Ding!'})

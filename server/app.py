@@ -1,10 +1,7 @@
 from flask import Flask, request
-from library.course_search import SearchUtil
 import os
 from db import db
 context = (os.path.join(os.path.dirname(__file__), 'certs/cert.crt'), os.path.join(os.path.dirname(__file__), 'certs/private.key'))
-
-searchUtil = SearchUtil()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:Fall2022CIS3760@localhost:5432/advisorlink'
