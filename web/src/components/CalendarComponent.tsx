@@ -135,8 +135,10 @@ export default function CalendarComponent() {
                       updateQuery(event)
                     }
                   />
-                  <TermSelector setValue={setTermId} />
-                  <div className="flex justify-evenly items-center p-4">
+                  <div className="pt-4">
+                    <TermSelector setValue={setTermId} />
+                  </div>
+                  <div className="flex justify-evenly items-center p-4 w-full">
                     <Multibutton
                       onClick={searchSections}
                       selectValue={queryType}
@@ -247,11 +249,11 @@ function TableSectionRow(props: any) {
   return (
     <>
       <tr
-        className="text-center"
+        className="text-center hover:bg-gray-200 cursor-pointer"
         id={String(index)}
         onClick={() => setExpanded(!expanded)}
       >
-        <td>{section.name}</td>
+        <td>{section.name}<span className='px-4'>{expanded ? <span>&#10006;</span> : <span>&#8230;</span>}</span></td>
         <td>{section.number}</td>
         <td>{section.faculty + section.code}</td>
         <td>{section.weight}</td>
