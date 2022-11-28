@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import Schedule from './Schedule';
 import { Multibutton } from './Multibutton';
 import { TermSelector } from './TermSelector';
+import { SuggestionEngineMenu } from './SuggestionEngineMenu';
 
 const queryRegex =
   /(name|code|faculty|credits|level|term|location|building|instructor|year):\s*([A-Za-z0-9]+)/g; // Save for future reference
@@ -54,6 +55,11 @@ export default function CalendarComponent() {
   useEffect(() => {
     setCookie('schedule', scheduleSections, { path: '/' });
   }, [scheduleSections]);
+
+  /* Whenever the term ID changes, clear the table to avoid confusion. */
+  useEffect(() => {
+    setSections([]);
+  }, [termId]);
 
   // Break search field into queryable strings
   const updateFilters = (event: ChangeEvent<HTMLInputElement>) => {
@@ -119,10 +125,19 @@ export default function CalendarComponent() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      <div className="grid grid-cols-3 auto-rows-min gap-12 px-16 py-20 w-full">
+      <div
+        className="grid auto-rows-min gap-12 px-16 pt-20 pb-0 w-full"
+        style={{ paddingBottom: '3rem' }}
+      >
+        <div className="flex items-center justify-start w-full rounded-md p-10 bg-gray-300 align-middle">
+          <h1 className="text-2xl font-bold pr-10">Term</h1>
+          <TermSelector setValue={setTermId} />
+        </div>
+      </div>
+      <div className="grid grid-cols-3 auto-rows-min gap-12 px-16 pb-20 w-full">
         <div className="flex items-center justify-start w-full rounded-md p-10 bg-gray-300 col-start-1 col-end-1">
+          {/* COURSE SEARCHING */}
           <div className="w-full">
-            {/* COURSE SEARCHING */}
             <h1 className="text-2xl font-bold pb-8">Course Search</h1>
             <div className="flex gap-3 w-full items-center">
               <div className="flex flex-col items-center justify-center w-full">
@@ -135,9 +150,6 @@ export default function CalendarComponent() {
                       updateQuery(event)
                     }
                   />
-                  <div className="pt-4">
-                    <TermSelector setValue={setTermId} />
-                  </div>
                   <div className="flex justify-evenly items-center p-4 w-full">
                     <Multibutton
                       onClick={searchSections}
@@ -152,11 +164,27 @@ export default function CalendarComponent() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-start w-full rounded-md px-10 py-10 bg-gray-300 col-start-2 col-end-4">
+
+        <div className="flex items-center justify-start w-full rounded-md p-10 bg-gray-300 col-start-1 col-end-1">
+          {/* Suggestions. */}
+          <div className="w-full">
+            <h1 className="text-2xl font-bold pb-8">Course Suggestions</h1>
+            <SuggestionEngineMenu
+              termId={termId}
+              currentSectionIds={scheduleSectionsInTerm.map((s) => s.id)}
+              onGetSections={setSections}
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center justify-start w-full row-start-1 row-end-3 rounded-md px-10 py-10 bg-gray-300 col-start-2 col-end-4">
           <div className="w-full">
             {/* COURSE SEARCH RESULTS */}
             <h1 className="text-2xl font-bold pb-8">Search Results</h1>
-            <div className="w-full bg-white rounded-md h-64 overflow-auto">
+            <div
+              className="w-full bg-white rounded-md overflow-auto"
+              style={{ height: '32rem' }}
+            >
               <SectionTable
                 sections={courseSections}
                 onCourseSelect={addToSchedule}
@@ -167,9 +195,15 @@ export default function CalendarComponent() {
             </div>
           </div>
         </div>
-        <div className="w-full col-start-1 col-end-4 row-start-2 bg-gray-300 rounded-md flex items-center justify-center p-10">
+
+        <div className="w-full col-start-1 col-end-4 row-start-3 bg-gray-300 rounded-md flex items-center justify-center p-10">
           <div className="w-10/12">
-            <h1 className="text-2xl font-bold pb-8">My Courses</h1>
+            <h1 className="text-2xl font-bold pb-8">
+              My Courses{' '}
+              <sup className="text-gray-600">
+                {scheduleSectionsInTerm.length}
+              </sup>
+            </h1>
             <div className="w-full bg-white rounded-md h-64 overflow-auto">
               <SectionTable
                 sections={scheduleSectionsInTerm}
@@ -180,9 +214,10 @@ export default function CalendarComponent() {
             </div>
           </div>
         </div>
-        <div className="rounded-md bg-gray-300 row-start-3 col-start-1 col-end-4 p-10">
-        <Schedule events={scheduleSectionsInTerm} />
-      </div>
+
+        <div className="rounded-md bg-gray-300 row-start-4 col-start-1 col-end-4 p-10">
+          <Schedule events={scheduleSectionsInTerm} />
+        </div>
       </div>
     </div>
   );
@@ -211,8 +246,9 @@ function SectionTable(props: TableSectionRowProps) {
         <tr>
           <th>Name</th>
           <th>Section</th>
-          <th>Code</th>
+          <th>Course Code</th>
           <th>Weight</th>
+          <th>Meetings</th>
           <th>{actionColTitle}</th>
         </tr>
       </thead>
@@ -237,26 +273,68 @@ function TableSectionRow(props: any) {
 
   const [expanded, setExpanded] = React.useState(false);
 
+  const meetingsStrings = [];
+  const nonExamMeetingCount = section.meetings
+    .filter((m: any) => m.type !== 'MeetingType.EXAM')
+    .reduce((acc: number, curr: any) => acc + (curr.days?.length || 0), 0);
+  if (nonExamMeetingCount > 0)
+    meetingsStrings.push(`${nonExamMeetingCount} Weekly`);
+
+  const examMeetingCount = section.meetings
+    .filter((m: any) => m.type === 'MeetingType.EXAM')
+    .reduce((acc: number, curr: any) => acc + (curr.days?.length || 0), 0);
+  if (examMeetingCount > 0)
+    meetingsStrings.push(
+      `${examMeetingCount} Exam${examMeetingCount > 1 ? 's' : ''}`,
+    );
+
+  const meetingsString = meetingsStrings.length
+    ? meetingsStrings.join(', ')
+    : 'None';
+
   const onAddCourse = (e: any) => {
     e.stopPropagation();
     addToSchedule(e, index);
   };
 
+  const hasMeetings = examMeetingCount + nonExamMeetingCount > 0;
+
   const courseAdded = !!selectedSections?.find(
     (s: Section) => s.id === section.id,
   );
 
+  const className = `text-center hover:bg-gray-200 ${
+    hasMeetings ? 'cursor-pointer' : ''
+  }`;
+
   return (
     <>
       <tr
-        className="text-center hover:bg-gray-200 cursor-pointer"
+        className={className}
         id={String(index)}
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => setExpanded(hasMeetings && !expanded)}
       >
-        <td>{section.name}<span className='px-4'>{expanded ? <span>&#10006;</span> : <span>&#8230;</span>}</span></td>
+        <td>{section.name}</td>
         <td>{section.number}</td>
         <td>{section.faculty + section.code}</td>
         <td>{section.weight}</td>
+        <td>
+          {meetingsString}{' '}
+          {hasMeetings && (
+            <button
+              type="button"
+              className="bg-blue-500 text-white hover:bg-blue-600 font-bold min-height-1 min-width-1 ml-1"
+              style={{
+                borderRadius: '1000em',
+                height: '16px',
+                width: '16px',
+                fontSize: '10px',
+              }}
+            >
+              {expanded ? '-' : 'i'}
+            </button>
+          )}
+        </td>
         <td>
           <button
             className="px-2 hover:bg-blue-500 hover:text-white rounded-sm text-xl"

@@ -1,8 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 
-// eslint-disable-next-line react/no-unused-prop-types
-function SectionRow(props: { data: any; key: string }) {
+function SectionRow(props: { data: any }) {
   return (
     <li className="p-4 m-4 border-slate-50 border rounded-md">
       <div className="flex flex-row">
@@ -13,6 +12,7 @@ function SectionRow(props: { data: any; key: string }) {
           <p>{props.data.name}</p>
           <p>{props.data.term}</p>
         </div>
+
         <div className="flex-1">{props.data.instructor}</div>
       </div>
     </li>
@@ -36,10 +36,10 @@ export default function SectionList(props: {
           'No Results Found'
         ) : (
           <ul>
-            {props.sections.map((section) => (
+            {props.sections.map((section, index) => (
               <SectionRow
                 data={section}
-                key={section.faculty + section.code + section.number}
+                key={index + section.faculty + section.code + section.number}
               />
             ))}
           </ul>
