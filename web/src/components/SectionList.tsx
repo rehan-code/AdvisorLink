@@ -39,6 +39,7 @@ export default function SectionList(props: {
             {props.sections.map((section, index) => (
               <SectionRow
                 data={section}
+                // eslint-disable-next-line
                 key={index + section.faculty + section.code + section.number}
               />
             ))}

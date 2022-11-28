@@ -51,6 +51,7 @@ def getSectionsSearchQuery(queryString=None, queryType=None, termId=None, ids=No
 
     return query
 
+
 def attachSectionSearchQueryResults(results):
     sectionMap = {}
     for rowSection, course, faculty, term, meeting in results:
@@ -66,6 +67,7 @@ def attachSectionSearchQueryResults(results):
     sections = sectionMap.values()
 
     return list(sections)
+
 
 # Get all the sections
 @app.route('/api/sections', methods=['GET'])
@@ -89,12 +91,14 @@ def getTermsHandler():
     terms = models.Term.query.all()
     return json.dumps({'terms': [term.toClientJson() for term in terms]})
 
-def uniqueByField(l, field):
+
+def uniqueByField(lan, field):
     d = {}
-    for e in l:
+    for e in lan:
         if getattr(e, field) not in d:
             d[getattr(e, field)] = e
     return list(d.values())
+
 
 @app.route('/api/suggest-sections', methods=['GET'])
 def getSuggestSectionsHandler():
@@ -131,7 +135,7 @@ def getSuggestSectionsHandler():
     while len(courseSectionIds) < nDesiredCourses and not noResults:
         # Query the database for courses with no conflicting times.
         queryString = \
-            f"SELECT course_section.id FROM course_section LEFT JOIN meeting ON (meeting.course_section_id = course_section.id AND meeting.type <> 'EXAM' AND " + \
+            "SELECT course_section.id FROM course_section LEFT JOIN meeting ON (meeting.course_section_id = course_section.id AND meeting.type <> 'EXAM' AND " + \
             ("(" + " OR ".join([f"('{tb[0]}' = ANY(meeting.days) AND start_time < '{tb[2]}' AND end_time  > '{tb[1]}')" for tb in timeBlocks]) + ")" if len(timeBlocks) > 0 else "FALSE") + \
             f") WHERE meeting.id IS NULL AND course_section.term_id='{termId}' " + \
             (f""" AND course_section.course_id NOT IN ({','.join([f"'{id}'" for id in currentCourseIds])})""" if len(currentCourseIds) else '') + \
@@ -153,6 +157,6 @@ def getSuggestSectionsHandler():
             for m in newCourse.meetings:
                 if m.days:
                     for d in m.days:
-                            timeBlocks.append((str(d).split('.')[1], str(m.start_time), str(m.end_time)))
+                        timeBlocks.append((str(d).split('.')[1], str(m.start_time), str(m.end_time)))
 
     return json.dumps({'sections': [s.toClientJson() for s in newSections]})
