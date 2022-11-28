@@ -57,7 +57,7 @@ export function TermSelector(props: TermSelectorProps) {
 
   return (
     <select
-      className="py-4 px-8 bg-blue-800 rounded-md text-white hover:bg-blue-900 font-bold"
+      className="py-4 px-8 bg-blue-800 rounded-md text-white hover:bg-blue-900 font-bold w-full"
       style={{
         color: 'white',
         fontWeight: 'bold',

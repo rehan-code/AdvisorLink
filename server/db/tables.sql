@@ -60,6 +60,7 @@ CREATE TABLE course_section (
   FOREIGN KEY (course_id) REFERENCES course (id),
   FOREIGN KEY (term_id) REFERENCES term (id)
 );
+CREATE INDEX course_section_course_id_index ON course_section(course_id);
 
 CREATE TABLE meeting (
   id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -76,6 +77,10 @@ CREATE TABLE meeting (
 
   FOREIGN KEY (course_section_id) REFERENCES course_section (id)
 );
+CREATE INDEX meeting_course_section_id_index ON meeting(course_section_id);
+CREATE INDEX meeting_start_time ON meeting(start_time);
+CREATE INDEX meeting_end_time ON meeting(end_time);
+CREATE INDEX meeting_days ON meeting(days);
 
 -- Add searching capability by course name
 ALTER TABLE course ADD COLUMN ts_name tsvector
