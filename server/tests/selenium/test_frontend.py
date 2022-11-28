@@ -94,7 +94,7 @@ def add_winter_courses(driver):
     link = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div/div/button")
     link.click()
     time.sleep(SLEEP_TIME)
-    
+
     # Select 'W2023' in term dropdown
     print('2.2 Switching to W2023 schedule...')
     select = Select(driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div[1]/div/select'))
@@ -229,7 +229,7 @@ def export_schedule(driver):
     link = driver.find_element(By.XPATH, "/html/body/div/div/main/div[2]/div/div[2]/div[3]/div/div/table/tbody/tr[1]/td[6]/button")
     link.click()
     time.sleep(SLEEP_TIME)
-    
+
     # Export calendar
     print('4.4 Exporting calendar...')
     link = driver.find_element(By.XPATH, "/html/body/div/div/main/div[2]/div/div[2]/div[5]/div/div[2]/button[2]")
@@ -247,7 +247,7 @@ def search_by_course_name(driver):
     link = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div/div/button")
     link.click()
     time.sleep(SLEEP_TIME)
-    
+
     # Select 'Search by Course Name' in search query dropdown
     print('5.2 Switching to \'Search by Course Name\'...')
     select = Select(driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div[2]/div[1]/div/div/div/form/div/select'))
@@ -268,7 +268,7 @@ def search_by_course_name(driver):
     time.sleep(SLEEP_TIME)
 
     # Add course to schedule
-    print('5.4 Adding to schedule: \'Soil Management\'...') ##
+    print('5.4 Adding to schedule: \'Soil Management\'...')
     link = driver.find_element(By.XPATH, "/html/body/div/div/main/div[2]/div/div[2]/div[3]/div/div/table/tbody/tr[1]/td[6]/button")
     link.click()
     time.sleep(SLEEP_TIME)
@@ -278,7 +278,7 @@ def search_by_course_name(driver):
     element = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div[2]/div[5]/div/div[1]/div[1]/div/div/div[2]/div/table/thead/tr/th/div/div/table/thead/tr/th[1]')
     driver.execute_script("arguments[0].scrollIntoView(true);", element)
     time.sleep(SLEEP_TIME * 2)
-    
+
     print('\n...Test 5 passed.\n')
 
 def search_by_course_code(driver):
@@ -321,11 +321,10 @@ def search_by_course_code(driver):
     element = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div[2]/div[5]/div/div[1]/div[1]/div/div/div[2]/div/table/thead/tr/th/div/div/table/thead/tr/th[1]')
     driver.execute_script("arguments[0].scrollIntoView(true);", element)
     time.sleep(SLEEP_TIME * 2)
-    
+
     print('\n...Test 6 passed.\n')
 
 def search_by_instructor(driver):
-    
     print('\nTest 7 - Search by Instructor\n')
 
     # Navigate to calendar page
@@ -333,7 +332,7 @@ def search_by_instructor(driver):
     link = driver.find_element(By.XPATH, "/html/body/div[1]/div/main/div[2]/div/div/button")
     link.click()
     time.sleep(SLEEP_TIME)
-    
+
     # choose Search by Instructor in the dropdown
     select = Select(driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div[2]/div[1]/div/div/div/form/div/select'))
     select.select_by_visible_text('Search by Instructor')
@@ -362,7 +361,7 @@ def search_by_instructor(driver):
     element = driver.find_element(By.XPATH, '/html/body/div/div/main/div[2]/div/div[2]/div[5]/div/div[1]/div[1]/div/div/div[2]/div/table/thead/tr/th/div/div/table/thead/tr/th[1]')
     driver.execute_script("arguments[0].scrollIntoView(true);", element)
     time.sleep(SLEEP_TIME)
-    
+
     print('\n...Test 7 passed.\n')
 
 def course_dropdown(driver):
@@ -387,7 +386,7 @@ def course_dropdown(driver):
     link = driver.find_element(By.XPATH, "/html/body/div/div/main/div[2]/div/div[2]/div[1]/div/div/div/form/div/button")
     link.click()
     time.sleep(SLEEP_TIME)
-    
+
     # Display course information
     print('8.3 Display course information...')
     link = driver.find_element(By.XPATH, "/html/body/div/div/main/div[2]/div/div[2]/div[3]/div/div/table/tbody/tr[1]/td[1]")
@@ -401,7 +400,7 @@ def course_dropdown(driver):
     time.sleep(SLEEP_TIME)
 
     print('\n...Test 8 passed.\n')
-    
+
 def course_suggestion(driver):
 
     print('\nTest 9 - Suggest Courses\n')
@@ -440,18 +439,17 @@ def view_about_us(driver):
 class TestAdvisorLink(unittest.TestCase):
     HEADLESS = 'false'
 
-    #Driver initialization
+    # Driver initialization
     def setUp(self):
-
         # Setup chrome options
         print('\nSetting up chromedriver options...')
 
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
-        
+
         if (self.HEADLESS == 'true'):
             chrome_options.add_argument("--headless")
-            
+
         chrome_options.add_argument("--disable-gpu")
 
         # Choose Chrome Browser
@@ -492,18 +490,18 @@ class TestAdvisorLink(unittest.TestCase):
     def test_10_view_about_us(self):
         view_about_us(self.driver)
 
-    #Clean up
+    # Clean up
     def tearDown(self):
         self.driver.quit()
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Selenium testing program for Advisorlink.ml')
     parser.add_argument('-headless', action='store_true', help='turns on headless mode', required=False)
     parser.add_argument('-t', help='choose a specific test case to run', required=False)
 
-    args = parser.parse_args()    
+    args = parser.parse_args()
 
     # Run tests in gui-less mode
     if (args.headless):
@@ -511,10 +509,9 @@ if __name__ == '__main__':
 
     # Run specific test, if specified
     if (args.t):
-        
         try:
             testToRun = unittest.TestSuite()
-            testToRun.addTest(TestAdvisorLink(args.t) )
+            testToRun.addTest(TestAdvisorLink(args.t))
 
             print('test_frontend: running test case \'' + args.t + '\'...')
             unittest.TextTestRunner().run(testToRun)
@@ -526,4 +523,4 @@ if __name__ == '__main__':
     else:
         testSuite = unittest.TestLoader().loadTestsFromTestCase(TestAdvisorLink)
         allTests = unittest.TestSuite(testSuite)
-        unittest.TextTestRunner().run(allTests) 
+        unittest.TextTestRunner().run(allTests)

@@ -105,6 +105,6 @@ test-frontend:
     - rm chromedriver_linux64.zip
     - rm chromedriver
   script:
-    - python3 test_frontend.py
+    - python3 test_frontend.py -headless
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
